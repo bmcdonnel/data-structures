@@ -1,7 +1,4 @@
-#include <iostream>
 #include <cstdint>
-#include <stdexcept>
-#include <sstream>
 
 void merge(int32_t* array, int32_t* aux, uint32_t begin, uint32_t middle, uint32_t end)
 {
@@ -67,48 +64,3 @@ void merge_sort(int32_t* array, int32_t* aux, uint32_t begin, uint32_t end)
   merge(array, aux, begin, middle + 1, end);
 }
 
-std::string stringify_array(int32_t* array, uint32_t length)
-{
-  std::stringstream ss;
-
-  for (uint32_t i = 0; i < length; ++i)
-  {
-    ss << array[i] << " ";
-  }
-
-  return ss.str();
-}
-
-int main(int argc, char** argv)
-{
-  if (argc < 2)
-  {
-    std::cout << "usage: " << argv[0] << " <arbitrarily long list of integers>" << std::endl;
-    return 1;
-  }
-
-  const uint32_t length = argc - 1;
-
-  int32_t array[length];
-  int32_t aux[length];
-
-  for (uint32_t i = 0; i < length; ++i)
-  {
-    array[i] = std::atoi(argv[i + 1]);
-  }
-
-  std::memset(aux, 0, length);
-
-  try
-  {
-    std::cout << "before: " << stringify_array(array, length) << std::endl;
-    merge_sort(array, aux, 0, length - 1);
-    std::cout << "after : " << stringify_array(array, length) << std::endl;
-  }
-  catch(std::runtime_error& e)
-  {
-    std::cout << e.what() << std::endl;
-  }
-
-  return 0;
-}
