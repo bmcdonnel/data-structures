@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "merge_sort.h"
+#include "quick_sort.h"
 
 std::string stringify_array(int32_t* array, uint32_t length)
 {
@@ -46,7 +47,7 @@ int main(int argc, char** argv)
     }
     else if (std::strcmp(argv[1], "-quick") == 0)
     {
-      // quick_sort(array
+      quick_sort(array, length);
     }
     else
     {
