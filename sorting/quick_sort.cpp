@@ -7,7 +7,6 @@ namespace sorting
   {
     if (length < 2) { return; }
 
-    // pick the value in the first slot as the pivot
     int32_t pivot_value = array[length / 2];
 
     uint32_t left = 0;

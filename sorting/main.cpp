@@ -16,14 +16,11 @@ int main(int argc, char** argv)
   const uint32_t length = argc - 2;
 
   int32_t array[length];
-  int32_t aux[length];
 
   for (uint32_t i = 0; i < length; ++i)
   {
     array[i] = std::atoi(argv[i + 2]);
   }
-
-  std::memset(aux, 0, length);
 
   try
   {
@@ -31,6 +28,9 @@ int main(int argc, char** argv)
 
     if (std::strcmp(argv[1], "-merge") == 0)
     {
+      int32_t aux[length];
+      std::memset(aux, 0, length);
+
       sorting::merge_sort(array, aux, 0, length - 1);
     }
     else if (std::strcmp(argv[1], "-quick") == 0)
