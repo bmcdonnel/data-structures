@@ -1,21 +1,9 @@
 #include <iostream>
 #include <cstdint>
-#include <sstream>
 
+#include "utils/array_utils.h"
 #include "merge_sort.h"
 #include "quick_sort.h"
-
-std::string stringify_array(int32_t* array, uint32_t length)
-{
-  std::stringstream ss;
-
-  for (uint32_t i = 0; i < length; ++i)
-  {
-    ss << array[i] << " ";
-  }
-
-  return ss.str();
-}
 
 int main(int argc, char** argv)
 {
@@ -39,7 +27,7 @@ int main(int argc, char** argv)
 
   try
   {
-    std::cout << "before: " << stringify_array(array, length) << std::endl;
+    std::cout << "before: " << utils::array_to_string(array, length) << std::endl;
 
     if (std::strcmp(argv[1], "-merge") == 0)
     {
@@ -54,7 +42,7 @@ int main(int argc, char** argv)
       throw std::runtime_error("no sorting type argument was provided");
     }
 
-    std::cout << "after : " << stringify_array(array, length) << std::endl;
+    std::cout << "after : " << utils::array_to_string(array, length) << std::endl;
   }
   catch(std::runtime_error& e)
   {

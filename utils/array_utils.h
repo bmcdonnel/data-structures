@@ -2,8 +2,22 @@
 #define ARRAY_UTILS_H_
 
 #include <cstdint>
+#include <sstream>
 
 namespace utils {
+  template <class T>
+  std::string array_to_string(T* array, uint64_t length)
+  {
+    std::stringstream ss;
+
+    for (uint64_t i = 0; i < length; ++i)
+    {
+      ss << array[i] << " ";
+    }
+
+    return ss.str();
+  }
+
   template <class T>
   void swap(T* x, T* y)
   {
