@@ -2,13 +2,12 @@
 
 namespace utils
 {
-  void swap(int32_t* x, int32_t* y)
+  void reverse_buffer(char* buffer, unsigned int length)
   {
-    if(x == y) { return; }
-
-    *x = *x ^ *y;
-    *y = *x ^ *y;
-    *x = *x ^ *y;
+    for (int i = 0; i < length / 2; ++i)
+    {
+      utils::swap(&buffer[i], &buffer[length - 1 - i]);
+    }
   }
 }
 

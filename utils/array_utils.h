@@ -4,7 +4,17 @@
 #include <cstdint>
 
 namespace utils {
-  void swap(int32_t* x, int32_t* y);
+  template <class T>
+  void swap(T* x, T* y)
+  {
+    if(x == y) { return; }
+
+    *x = *x ^ *y;
+    *y = *x ^ *y;
+    *x = *x ^ *y;
+  }
+
+  void reverse_buffer(char* buffer, unsigned int length);
 }
 
 #endif

@@ -3,22 +3,7 @@
 #include <cstring>
 #include <stdexcept>
 
-void swap(char* x, char* y)
-{
-  if(x == y) { return; }
-
-  *x = *x ^ *y;
-  *y = *x ^ *y;
-  *x = *x ^ *y;
-}
-
-void reverse_buffer(char* buffer, unsigned int length)
-{
-  for (int i = 0; i < length / 2; ++i)
-  {
-    swap(&buffer[i], &buffer[length - 1 - i]);
-  }
-}
+#include "utils/array_utils.h"
 
 void reverse_words(char* buffer, unsigned int length)
 {
@@ -27,7 +12,7 @@ void reverse_words(char* buffer, unsigned int length)
     throw std::runtime_error("invalid length " + std::to_string(length));
   }
 
-  reverse_buffer(buffer, length);
+  utils::reverse_buffer(buffer, length);
 
   std::cout << "during: '" << buffer << "'" << std::endl;
 
@@ -42,13 +27,13 @@ void reverse_words(char* buffer, unsigned int length)
       continue;
     }
 
-    reverse_buffer(begin, end - begin);
+    utils::reverse_buffer(begin, end - begin);
 
     begin = end + 1;
     end = begin;
   }
 
-  reverse_buffer(begin, end - begin);
+  utils::reverse_buffer(begin, end - begin);
 }
 
 int main(int argc, char** argv)
