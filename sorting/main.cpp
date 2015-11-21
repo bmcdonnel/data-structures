@@ -43,11 +43,11 @@ int main(int argc, char** argv)
 
     if (std::strcmp(argv[1], "-merge") == 0)
     {
-      merge_sort(array, aux, 0, length - 1);
+      sorting::merge_sort(array, aux, 0, length - 1);
     }
     else if (std::strcmp(argv[1], "-quick") == 0)
     {
-      quick_sort(array, length);
+      sorting::quick_sort(array, length);
     }
     else
     {

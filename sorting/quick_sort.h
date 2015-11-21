@@ -3,6 +3,9 @@
 
 #include <cstdint>
 
-void quick_sort(int32_t* array, uint32_t length);
+namespace sorting {
+  void swap(int32_t* x, int32_t* y);
+  void quick_sort(int32_t* array, uint32_t length);
+}
 
 #endif
