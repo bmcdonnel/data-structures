@@ -13,3 +13,7 @@ add_executable (shuffle shuffle.cpp)
 target_include_directories(shuffle PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries (shuffle LINK_PUBLIC utils)
 
+add_executable (bst_node_path bst_node_path.cpp)
+target_include_directories(bst_node_path PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries (bst_node_path LINK_PUBLIC utils)
+
