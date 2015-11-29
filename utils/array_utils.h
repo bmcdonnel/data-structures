@@ -6,7 +6,7 @@
 
 namespace utils {
   template <class T>
-  std::string array_to_string(T* array, uint64_t length)
+  std::string array_to_string(T* array, const uint64_t length)
   {
     std::stringstream ss;
 
@@ -28,7 +28,7 @@ namespace utils {
     *x = *x ^ *y;
   }
 
-  void reverse_buffer(char* buffer, unsigned int length);
+  void reverse_buffer(char* buffer, const uint64_t length);
 }
 
 #endif

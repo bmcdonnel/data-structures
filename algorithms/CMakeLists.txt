@@ -9,3 +9,7 @@ add_executable (find_kth_smallest find_kth_smallest.cpp)
 target_include_directories(find_kth_smallest PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries (find_kth_smallest LINK_PUBLIC utils)
 
+add_executable (shuffle shuffle.cpp)
+target_include_directories(shuffle PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries (shuffle LINK_PUBLIC utils)
+
