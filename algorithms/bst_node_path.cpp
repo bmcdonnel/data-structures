@@ -14,7 +14,7 @@ uint32_t log_base_2(const uint32_t value)
     division_count++;
   }
 
-  return division_count;
+  return division_count - 1;
 }
 
 int main(int argc, char** argv)
@@ -25,8 +25,17 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  const uint32_t input_length = argc - 1;
-  const uint32_t tree_height = log_base_2(input_length);
+  const uint32_t size = argc - 1;
 
-  std::cout << "tree height: " << tree_height << std::endl;
+  BinarySearchTree<uint32_t> bst(size);
+
+  for (uint32_t i = 0; i < size; ++i)
+  {
+    bst.Insert(std::atoi(argv[i + 1]));
+  }
+
+  std::cout << bst.ToString() << std::endl;
+
+  std::cout << "tree height: " << bst.TreeHeight() << std::endl;
+
 }

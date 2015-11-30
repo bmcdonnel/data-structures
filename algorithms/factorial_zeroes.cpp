@@ -11,7 +11,6 @@ int main(int argc, char** argv)
 
   int32_t factorial_arg = std::atoi(argv[1]);
 
-  int32_t divisor = 5;
   int32_t num_zeroes = 0;
 
   for (int32_t divisor = 5; factorial_arg/divisor >= 1; divisor *= 5)
