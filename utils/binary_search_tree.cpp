@@ -46,7 +46,11 @@ void BinarySearchTree::Insert(const uint32_t value)
 
       _item_count++;
 
-      Rebalance(ParentIndex(index));
+      if (index != 0)
+      {
+        Rebalance(ParentIndex(index));
+      }
+
       break;
     }
     else if (value <= _array[index].value)
@@ -62,6 +66,13 @@ void BinarySearchTree::Insert(const uint32_t value)
   if (index >= _array_size)
   {
     Resize();
+
+    _array[index].value = value;
+    _array[index].is_empty = false;
+
+    _item_count++;
+
+    Rebalance(ParentIndex(index));
   }
 }
 
@@ -116,6 +127,7 @@ void BinarySearchTree::Resize()
   delete[] _array;
 
   _array = new_array;
+  _array_size = new_size;
 }
 
 uint32_t BinarySearchTree::Height(const uint32_t index) const
