@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 
   const uint32_t size = argc - 1;
 
-  BinarySearchTree<uint32_t> bst(size);
+  utils::BinarySearchTree bst(size);
 
   for (uint32_t i = 0; i < size; ++i)
   {
