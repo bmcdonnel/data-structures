@@ -104,14 +104,46 @@ std::string BinarySearchTree::ToString() const
 
 void BinarySearchTree::Rebalance(const uint32_t index)
 {
-  _array[index].balance = Height(RightChildIndex(index)) -
-                          Height(LeftChildIndex(index));
+  uint32_t rightChild = RightChildIndex(index);
+  uint32_t leftChild = LeftChildIndex(index);
+
+  _array[index].balance = Height(rightChild) - Height(leftChild);
 
   if (_array[index].balance == -2)
   {
+    // leftChild is overall taller than rightChild
+
+    uint32_t leftRightChild = RightChildIndex(leftChild);
+    uint32_t leftLeftChild = LeftChildIndex(leftChild);
+
+    if (Height(leftLeftChild) >= Height(leftRightChild))
+    {
+      // leftChild's left is taller than its right
+      // rotate right from leftChild to index
+      RotateRight(leftChild, index);
+    }
+    else
+    {
+    }
   }
   else if (_array[index].balance == 2)
   {
+    // rightChild is overall taller than leftChild
+
+    uint32_t rightRightChild = RightChildIndex(rightChild);
+    uint32_t rightLeftChild = LeftChildIndex(rightChild);
+
+    if (Height(rightRightChild) >= Height(rightLeftChild))
+    {
+      // rightChild's right is taller than its left
+      // rotate left from rightChild to this index
+      RotateLeft(rightChild, index);
+    }
+    else
+    {
+      // TODO(bryan) is this correct?
+      // rightChild's left is taller than its right
+    }
   }
 
   if (index != 0)
@@ -152,6 +184,14 @@ uint32_t BinarySearchTree::Height(const uint32_t index) const
   {
     return rightHeight + 1;
   }
+}
+
+void BinarySearchTree::RotateLeft(const uint32_t source, const uint32_t dest)
+{
+}
+
+void BinarySearchTree::RotateRight(const uint32_t source, const uint32_t dest)
+{
 }
 
 }

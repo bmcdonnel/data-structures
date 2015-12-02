@@ -44,6 +44,9 @@ private:
   void Resize();
   uint32_t Height(const uint32_t index) const;
 
+  void RotateLeft(const uint32_t source, const uint32_t dest);
+  void RotateRight(const uint32_t source, const uint32_t dest);
+
   static inline uint32_t LeftChildIndex(const uint32_t index)
   {
     return index * 2 + 1;
