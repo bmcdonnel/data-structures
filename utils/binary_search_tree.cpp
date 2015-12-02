@@ -136,7 +136,7 @@ void BinarySearchTree::Resize()
 
 uint32_t BinarySearchTree::Height(const uint32_t index) const
 {
-  if (index >= _item_count || _array[index].is_empty)
+  if (index >= _array_size || _array[index].is_empty)
   {
     return 0;
   }
