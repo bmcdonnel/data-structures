@@ -18,9 +18,9 @@ int main(int argc, char** argv)
   for (uint32_t i = 0; i < size; ++i)
   {
     bst.Insert(std::atoi(argv[i + 1]));
-  }
 
-  std::cout << bst.ToString() << std::endl;
+    std::cout << bst.ToString() << std::endl;
+  }
 
   std::cout << "tree height: " << bst.TreeHeight() << std::endl;
 

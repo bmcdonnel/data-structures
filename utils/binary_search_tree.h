@@ -1,7 +1,7 @@
 #ifndef BINARY_SEARCH_TREE_H_
 #define BINARY_SEARCH_TREE_H_
 
-#include <sstream>
+#include <string>
 
 namespace utils {
 
@@ -24,7 +24,9 @@ private:
   struct Node
   {
     Node() :
-      is_empty(true)
+      is_empty(true),
+      balance(0),
+      value(0)
     {
     }
 

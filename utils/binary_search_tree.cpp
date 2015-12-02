@@ -1,5 +1,8 @@
 #include "binary_search_tree.h"
 
+#include <iostream>
+#include <sstream>
+
 namespace utils {
 
 uint32_t log_base_2(const uint32_t value)
@@ -122,7 +125,8 @@ void BinarySearchTree::Resize()
   uint32_t new_size = _array_size * 2;
   Node* new_array = new Node[new_size];
 
-  std::memcpy(new_array, _array, new_size * sizeof(Node));
+  // copy contents of current array into the new array
+  std::memcpy(new_array, _array, _array_size * sizeof(Node));
 
   delete[] _array;
 
