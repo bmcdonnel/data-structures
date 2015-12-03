@@ -44,6 +44,8 @@ private:
   void Resize();
   uint32_t Height(const uint32_t index) const;
 
+  void MoveSubTree(const uint32_t source, const uint32_t dest);
+
   void RotateLeft(const uint32_t source, const uint32_t dest);
   void RotateRight(const uint32_t source, const uint32_t dest);
 

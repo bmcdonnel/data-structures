@@ -186,8 +186,24 @@ uint32_t BinarySearchTree::Height(const uint32_t index) const
   }
 }
 
+void BinarySearchTree::MoveSubTree(const uint32_t source, const uint32_t dest)
+{
+}
+
 void BinarySearchTree::RotateLeft(const uint32_t source, const uint32_t dest)
 {
+  uint32_t destLeftChild = LeftChildIndex(dest);
+
+  // lower the left child sub-tree of the destination down a level
+  MoveSubTree(destLeftChild, LeftChildIndex(destLeftChild));
+
+  // copy the destination to the now-vacant position
+  std::memcpy(&_array[destLeftChild], &_array[dest], sizeof(Node));
+
+  uint32_t sourceLeftChild = LeftChildIndex(source);
+
+  // make the left child of the source node the right child of the newly lowered sub-tree
+  MoveSubTree(sourceLeftChild, RightChildIndex(destLeftChild));
 }
 
 void BinarySearchTree::RotateRight(const uint32_t source, const uint32_t dest)
