@@ -91,7 +91,7 @@ std::string BinarySearchTree::ToString() const
   {
     if (_array[i].is_empty)
     {
-      ss << "X ";
+      ss << ". ";
     }
     else
     {
@@ -188,7 +188,7 @@ uint32_t BinarySearchTree::Height(const uint32_t index) const
 
 void BinarySearchTree::MoveSubTree(const uint32_t source, const uint32_t dest)
 {
-  if (_array[source].is_empty)
+  if (source >= _array_size || _array[source].is_empty)
   {
     return;
   }
