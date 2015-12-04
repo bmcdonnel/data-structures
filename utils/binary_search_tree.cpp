@@ -120,10 +120,13 @@ void BinarySearchTree::Rebalance(const uint32_t index)
     {
       // leftChild's left is taller than its right
       // rotate right from leftChild to index
+      std::cout << "rotating right from " << leftChild << " to " << index << std::endl;
       RotateRight(leftChild, index);
+      ToString();
     }
     else
     {
+      std::cout << "need to rotate left then right for index " << index << std::endl;
     }
   }
   else if (_array[index].balance == 2)
@@ -137,18 +140,24 @@ void BinarySearchTree::Rebalance(const uint32_t index)
     {
       // rightChild's right is taller than its left
       // rotate left from rightChild to this index
+      std::cout << "rotating left from " << rightChild << " to " << index << std::endl;
       RotateLeft(rightChild, index);
+      ToString();
     }
     else
     {
       // TODO(bryan) is this correct?
       // rightChild's left is taller than its right
+      std::cout << "need to rotate right then left for index " << index << std::endl;
     }
   }
 
   if (index != 0)
   {
-    Rebalance(ParentIndex(index));
+    uint32_t parentIndex = ParentIndex(index);
+    std::cout << "rebalancing index " << parentIndex << std::endl;
+    Rebalance(parentIndex);
+    ToString();
   }
 }
 
@@ -222,6 +231,19 @@ void BinarySearchTree::RotateLeft(const uint32_t source, const uint32_t dest)
 
 void BinarySearchTree::RotateRight(const uint32_t source, const uint32_t dest)
 {
+  uint32_t destRightChild = RightChildIndex(dest);
+
+  MoveSubTree(destRightChild, RightChildIndex(destRightChild));
+
+  std::memcpy(&_array[destRightChild], &_array[dest], sizeof(Node));
+
+  uint32_t sourceRightChild = RightChildIndex(source);
+
+  MoveSubTree(sourceRightChild, RightChildIndex(destRightChild));
+
+  _array[sourceRightChild].is_empty = true;
+
+  MoveSubTree(source, dest);
 }
 
 }
