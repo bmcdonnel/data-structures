@@ -1,6 +1,5 @@
 #include "binary_search_tree.h"
 
-#include <iostream>
 #include <sstream>
 
 namespace utils {
@@ -36,7 +35,7 @@ uint32_t BinarySearchTree::TreeHeight() const
   return Height(0);
 }
 
-void BinarySearchTree::Insert(const uint32_t value)
+void BinarySearchTree::Insert(const int32_t value)
 {
   uint32_t index = 0;
 
@@ -44,7 +43,6 @@ void BinarySearchTree::Insert(const uint32_t value)
   {
     if (_array[index].is_empty)
     {
-      std::cout << "inserting " << value << " at index " << index << std::endl;
       _array[index].value = value;
       _array[index].is_empty = false;
 
@@ -80,8 +78,26 @@ void BinarySearchTree::Insert(const uint32_t value)
   }
 }
 
-void BinarySearchTree::Remove(const uint32_t value)
+void BinarySearchTree::Remove(const int32_t value)
 {
+  // TODO(bryan) finish this
+}
+
+bool BinarySearchTree::GetParent(const int32_t value, int32_t* parent)
+{
+  uint32_t index;
+
+  bool found = FindIndex(value, &index);
+
+  if (found && index)
+  {
+    *parent = _array[ParentIndex(index)].value;
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 std::string BinarySearchTree::ToString() const
@@ -121,13 +137,11 @@ void BinarySearchTree::Rebalance(const uint32_t index)
     {
       // leftChild's left is taller than its right
       // rotate right from leftChild to index
-      std::cout << "rotating right from index " << leftChild << " to " << index << std::endl;
       RotateRight(leftChild, index);
       ToString();
     }
     else
     {
-      std::cout << "need to rotate left then right for index " << index << std::endl;
     }
   }
   else if (_array[index].balance == 2)
@@ -141,7 +155,6 @@ void BinarySearchTree::Rebalance(const uint32_t index)
     {
       // rightChild's right is taller than its left
       // rotate left from rightChild to this index
-      std::cout << "rotating left from index " << rightChild << " to " << index << std::endl;
       RotateLeft(rightChild, index);
       ToString();
     }
@@ -149,14 +162,12 @@ void BinarySearchTree::Rebalance(const uint32_t index)
     {
       // TODO(bryan) is this correct?
       // rightChild's left is taller than its right
-      std::cout << "need to rotate right then left for index " << index << std::endl;
     }
   }
 
   if (index != 0)
   {
     uint32_t parentIndex = ParentIndex(index);
-    std::cout << "rebalancing index " << parentIndex << std::endl;
     Rebalance(parentIndex);
     ToString();
   }
@@ -206,11 +217,8 @@ void BinarySearchTree::MoveSubTree(const uint32_t source, const uint32_t dest)
   const bool sourceLeftEmpty = _array[LeftChildIndex(source)].is_empty;
   const bool sourceRightEmpty = _array[RightChildIndex(source)].is_empty;
 
-  std::cout << "moving subtree index " << source << " to index " << dest << std::endl;
-
   if (source > dest)
   {
-    std::cout << "copying index " << source << " to index " << dest << std::endl;
     std::memcpy(&_array[dest], &_array[source], sizeof(Node));
 
     _array[source].is_empty = true;
@@ -242,8 +250,6 @@ void BinarySearchTree::RotateLeft(const uint32_t source, const uint32_t dest)
   // lower the left child sub-tree of the destination down a level
   MoveSubTree(destLeftChild, LeftChildIndex(destLeftChild));
 
-  std::cout << "copying index " << dest << " to index " << destLeftChild << std::endl;
-
   // copy the destination to the now-vacant position
   std::memcpy(&_array[destLeftChild], &_array[dest], sizeof(Node));
 
@@ -263,8 +269,6 @@ void BinarySearchTree::RotateRight(const uint32_t source, const uint32_t dest)
 
   MoveSubTree(destRightChild, RightChildIndex(destRightChild));
 
-  std::cout << "copying index " << dest << " to index " << destRightChild << std::endl;
-
   std::memcpy(&_array[destRightChild], &_array[dest], sizeof(Node));
 
   uint32_t sourceRightChild = RightChildIndex(source);
@@ -274,6 +278,37 @@ void BinarySearchTree::RotateRight(const uint32_t source, const uint32_t dest)
   _array[sourceRightChild].is_empty = true;
 
   MoveSubTree(source, dest);
+}
+
+bool BinarySearchTree::FindIndex(const int32_t value, uint32_t* index)
+{
+  uint32_t currentIndex = 0;
+
+  while (currentIndex < _array_size)
+  {
+    if (_array[currentIndex].is_empty)
+    {
+      return false;
+    }
+
+    const int32_t currentValue = _array[currentIndex].value;
+
+    if (value == currentValue)
+    {
+      *index = currentIndex;
+      return true;
+    }
+    else if (value <= currentValue)
+    {
+      currentIndex = LeftChildIndex(currentIndex);
+    }
+    else
+    {
+      currentIndex = RightChildIndex(currentIndex);
+    }
+  }
+
+  return false;
 }
 
 }

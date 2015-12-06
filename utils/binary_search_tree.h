@@ -15,8 +15,10 @@ public:
 
   uint32_t TreeHeight() const;
 
-  void Insert(const uint32_t value);
-  void Remove(const uint32_t value);
+  void Insert(const int32_t value);
+  void Remove(const int32_t value);
+
+  bool GetParent(const int32_t value, int32_t* parent);
 
   std::string ToString() const;
 
@@ -32,7 +34,7 @@ private:
 
     bool is_empty;
     int8_t balance;
-    uint32_t value;
+    int32_t value;
   };
 
   uint32_t _array_size;
@@ -48,6 +50,8 @@ private:
 
   void RotateLeft(const uint32_t source, const uint32_t dest);
   void RotateRight(const uint32_t source, const uint32_t dest);
+
+  bool FindIndex(const int32_t value, uint32_t* index);
 
   static inline uint32_t LeftChildIndex(const uint32_t index)
   {
