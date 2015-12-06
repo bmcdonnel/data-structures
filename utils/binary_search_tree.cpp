@@ -44,6 +44,7 @@ void BinarySearchTree::Insert(const uint32_t value)
   {
     if (_array[index].is_empty)
     {
+      std::cout << "inserting " << value << " at index " << index << std::endl;
       _array[index].value = value;
       _array[index].is_empty = false;
 
@@ -120,7 +121,7 @@ void BinarySearchTree::Rebalance(const uint32_t index)
     {
       // leftChild's left is taller than its right
       // rotate right from leftChild to index
-      std::cout << "rotating right from " << leftChild << " to " << index << std::endl;
+      std::cout << "rotating right from index " << leftChild << " to " << index << std::endl;
       RotateRight(leftChild, index);
       ToString();
     }
@@ -140,7 +141,7 @@ void BinarySearchTree::Rebalance(const uint32_t index)
     {
       // rightChild's right is taller than its left
       // rotate left from rightChild to this index
-      std::cout << "rotating left from " << rightChild << " to " << index << std::endl;
+      std::cout << "rotating left from index " << rightChild << " to " << index << std::endl;
       RotateLeft(rightChild, index);
       ToString();
     }
@@ -197,16 +198,41 @@ uint32_t BinarySearchTree::Height(const uint32_t index) const
 
 void BinarySearchTree::MoveSubTree(const uint32_t source, const uint32_t dest)
 {
-  if (source >= _array_size || _array[source].is_empty)
+  if (source == dest || source >= _array_size || _array[source].is_empty)
   {
     return;
   }
 
-  std::memcpy(&_array[dest], &_array[source], sizeof(Node));
-  _array[source].is_empty = true;
+  const bool sourceLeftEmpty = _array[LeftChildIndex(source)].is_empty;
+  const bool sourceRightEmpty = _array[RightChildIndex(source)].is_empty;
 
-  MoveSubTree(LeftChildIndex(source), LeftChildIndex(dest));
-  MoveSubTree(RightChildIndex(source), RightChildIndex(dest));
+  std::cout << "moving subtree index " << source << " to index " << dest << std::endl;
+
+  if (source > dest)
+  {
+    std::cout << "copying index " << source << " to index " << dest << std::endl;
+    std::memcpy(&_array[dest], &_array[source], sizeof(Node));
+
+    _array[source].is_empty = true;
+
+    if (!sourceLeftEmpty)
+    {
+      MoveSubTree(LeftChildIndex(source), LeftChildIndex(dest));
+    }
+
+    if (!sourceRightEmpty)
+    {
+      MoveSubTree(RightChildIndex(source), RightChildIndex(dest));
+    }
+  }
+  else
+  {
+    MoveSubTree(LeftChildIndex(source), LeftChildIndex(dest));
+    MoveSubTree(RightChildIndex(source), RightChildIndex(dest));
+
+    std::memcpy(&_array[dest], &_array[source], sizeof(Node));
+    _array[source].is_empty = true;
+  }
 }
 
 void BinarySearchTree::RotateLeft(const uint32_t source, const uint32_t dest)
@@ -215,6 +241,8 @@ void BinarySearchTree::RotateLeft(const uint32_t source, const uint32_t dest)
 
   // lower the left child sub-tree of the destination down a level
   MoveSubTree(destLeftChild, LeftChildIndex(destLeftChild));
+
+  std::cout << "copying index " << dest << " to index " << destLeftChild << std::endl;
 
   // copy the destination to the now-vacant position
   std::memcpy(&_array[destLeftChild], &_array[dest], sizeof(Node));
@@ -235,11 +263,13 @@ void BinarySearchTree::RotateRight(const uint32_t source, const uint32_t dest)
 
   MoveSubTree(destRightChild, RightChildIndex(destRightChild));
 
+  std::cout << "copying index " << dest << " to index " << destRightChild << std::endl;
+
   std::memcpy(&_array[destRightChild], &_array[dest], sizeof(Node));
 
   uint32_t sourceRightChild = RightChildIndex(source);
 
-  MoveSubTree(sourceRightChild, RightChildIndex(destRightChild));
+  MoveSubTree(sourceRightChild, LeftChildIndex(destRightChild));
 
   _array[sourceRightChild].is_empty = true;
 
