@@ -17,3 +17,7 @@ add_executable (bst_node_path bst_node_path.cpp)
 target_include_directories(bst_node_path PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries (bst_node_path LINK_PUBLIC utils)
 
+add_executable (beat_the_market beat_the_market.cpp)
+target_include_directories(beat_the_market PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries (beat_the_market LINK_PUBLIC utils)
+
