@@ -21,3 +21,7 @@ add_executable (beat_the_market beat_the_market.cpp)
 target_include_directories(beat_the_market PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries (beat_the_market LINK_PUBLIC utils)
 
+add_executable (grep grep.cpp)
+target_include_directories(grep PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries (grep LINK_PUBLIC utils)
+
