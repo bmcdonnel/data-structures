@@ -8,14 +8,14 @@
 
 #include "utils/array_utils.h"
 
-class BoyleMooreSearch
+class BoyerMooreSearch
 {
 public:
-  BoyleMooreSearch(void* mmap_data, const char* substring)
+  BoyerMooreSearch(void* mmap_data, const char* substring)
   {
   }
 
-  virtual ~BoyleMooreSearch()
+  virtual ~BoyerMooreSearch()
   {
   }
 
@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 
   void* data = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
 
-  BoyleMooreSearch bms(data, argv[1]);
+  BoyerMooreSearch bms(data, argv[1]);
 
   bms.Preprocess();
 
