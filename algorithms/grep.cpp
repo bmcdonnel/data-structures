@@ -8,6 +8,33 @@
 
 #include "utils/array_utils.h"
 
+class BoyleMooreSearch
+{
+public:
+  BoyleMooreSearch(void* mmap_data, const char* substring)
+  {
+  }
+
+  virtual ~BoyleMooreSearch()
+  {
+  }
+
+  void Preprocess()
+  {
+    // TODO(bryan) build both tables
+  }
+
+  char* FindNext()
+  {
+    return nullptr;
+  }
+
+private:
+  // TODO(bryan) need bad character rule table
+  // TODO(bryan) need good suffix rule table
+  // void* _current_pos;
+};
+
 int main(int argc, char** argv)
 {
   if (argc < 3)
@@ -37,8 +64,19 @@ int main(int argc, char** argv)
 
   void* data = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
 
+  BoyleMooreSearch bms(data, argv[1]);
+
+  bms.Preprocess();
+
+  char* next = bms.FindNext();
+
+  while (next != nullptr)
+  {
+    next = bms.FindNext();
+  }
+
   // TODO(bryan) search for the string argument in the mmapped file data
-  write(1, data, filesize);
+  // boyle_moore_preprocess(data, argv[1]);
 
   if (munmap(data, filesize) != 0)
   {
