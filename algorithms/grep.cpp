@@ -5,23 +5,49 @@
 
 #include <iostream>
 #include <cstdint>
+#include <exception>
 
 #include "utils/array_utils.h"
 
 class BoyerMooreSearch
 {
 public:
-  BoyerMooreSearch(void* mmap_data, const char* substring)
+  BoyerMooreSearch(const uint8_t* pattern, uint64_t patternLength) :
+    _pattern(pattern),
+    _patternLength(patternLength)
   {
+    PopulateBadCharacterTable();
   }
 
   virtual ~BoyerMooreSearch()
   {
+    if (munmap(_mmap_data, _filesize) != 0)
+    {
+      std::cout << "error unmapping file \"" << _filename << "\"" << std::endl;
+    }
   }
 
-  void Preprocess()
+  void SetFile(const char* filename)
   {
-    // TODO(bryan) build both tables
+    struct stat st;
+    int rval = stat(filename, &st);
+
+    if (rval != 0)
+    {
+      throw std::runtime_error("could not stat file \"" + _filename + "\"");
+    }
+
+    _filesize = st.st_size;
+
+    std::cout << "mmapping " << filename << " (size " << _filesize << ")" << std::endl;
+    _fd = open(filename, O_RDONLY, 0);
+
+    if (_fd == -1)
+    {
+      throw std::runtime_error("could not open file \"" + _filename + "\" for reading");
+    }
+
+    _mmap_data = static_cast<uint8_t*>(mmap(NULL, _filesize, PROT_READ, MAP_PRIVATE, _fd, 0));
   }
 
   char* FindNext()
@@ -30,56 +56,55 @@ public:
   }
 
 private:
-  // TODO(bryan) need bad character rule table
-  // TODO(bryan) need good suffix rule table
-  // void* _current_pos;
+  const uint8_t* _pattern;
+  const uint64_t _patternLength;
+
+  std::string _filename;
+  int32_t _fd;
+  uint64_t _filesize;
+  uint8_t* _mmap_data;
+
+  uint8_t _badCharacterTable[256];
+
+  void PopulateBadCharacterTable()
+  {
+    for (int32_t i = 0; i < 256; ++i)
+    {
+      _badCharacterTable[i] = _patternLength;
+    }
+
+    for (int32_t i = 0; i < _patternLength - 1; ++i)
+    {
+      _badCharacterTable[_pattern[i]] = _patternLength - 1 - i;
+    }
+  }
 };
 
 int main(int argc, char** argv)
 {
   if (argc < 3)
   {
-    std::cout << "usage: " << argv[0] << " string <filename> " << std::endl;
+    std::cout << "usage: " << argv[0] << " pattern filename[ filename ... ] " << std::endl;
     return 1;
   }
 
-  struct stat st;
-  int rval = stat(argv[2], &st);
+  BoyerMooreSearch bms(reinterpret_cast<uint8_t*>(argv[1]), std::strlen(argv[1]));
 
-  if (rval != 0)
+  for(int i = 2; i < argc; ++i)
   {
-    std::cout << "could not stat file \"" << argv[2] << "\"" << std::endl;
-    return 1;
-  }
+    try
+    {
+      bms.SetFile(argv[i]);
+    }
+    catch(std::runtime_error& e)
+    {
+      continue;
+    }
 
-  int32_t filesize = st.st_size;
-
-  std::cout << "mmapping " << argv[2] << " (size " << filesize << ")" << std::endl;
-  int fd = open(argv[2], O_RDONLY, 0);
-
-  if (fd == -1)
-  {
-    std::cout << "could not open file \"" << argv[2] << "\" for reading" << std::endl;
-  }
-
-  void* data = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
-
-  BoyerMooreSearch bms(data, argv[1]);
-
-  bms.Preprocess();
-
-  char* next = bms.FindNext();
-
-  while (next != nullptr)
-  {
-    next = bms.FindNext();
-  }
-
-  // TODO(bryan) search for the string argument in the mmapped file data
-  // boyle_moore_preprocess(data, argv[1]);
-
-  if (munmap(data, filesize) != 0)
-  {
-    std::cout << "error unmapping file \"" << argv[2] << "\"" << std::endl;
+    char* next = bms.FindNext();
+    while (next != nullptr)
+    {
+      next = bms.FindNext();
+    }
   }
 }
