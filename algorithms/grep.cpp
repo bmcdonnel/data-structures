@@ -14,13 +14,13 @@ class BoyerMooreSearch
 public:
   struct Result
   {
-    uint8_t* match;
+    char* match;
     uint64_t match_length;
     uint64_t line;
     uint64_t column;
   };
 
-  BoyerMooreSearch(const uint8_t* pattern, uint64_t patternLength) :
+  BoyerMooreSearch(const char* pattern, uint32_t patternLength) :
     _pattern(pattern),
     _patternLength(patternLength),
     _offset(_patternLength - 1),
@@ -64,7 +64,7 @@ public:
       throw std::runtime_error("could not open file \"" + _filename + "\" for reading");
     }
 
-    _mmap_data = static_cast<uint8_t*>(mmap(NULL, _filesize, PROT_READ, MAP_PRIVATE, _fd, 0));
+    _mmap_data = static_cast<char*>(mmap(NULL, _filesize, PROT_READ, MAP_PRIVATE, _fd, 0));
   }
 
   bool FindNext(Result* result)
@@ -77,7 +77,7 @@ public:
 
     while (_offset < _filesize)
     {
-      int64_t j = _patternLength - 1;
+      int32_t j = _patternLength - 1;
       while((_mmap_data[_offset] == _pattern[j]) && (j >= 0))
       {
         --_offset;
@@ -94,7 +94,7 @@ public:
         return true;
       }
 
-      auto a = _badCharacterTable[_mmap_data[_offset]];
+      auto a = _badCharacterTable[static_cast<uint8_t>(_mmap_data[_offset])];
       auto b = _goodSuffixRule[j];
 
       // move forward the max of those two values
@@ -105,28 +105,28 @@ public:
   }
 
 private:
-  const uint8_t* _pattern;
-  const uint64_t _patternLength;
+  const char* _pattern;
+  const uint32_t _patternLength;
 
   std::string _filename;
   int32_t _fd;
   uint64_t _filesize;
-  uint8_t* _mmap_data;
+  char* _mmap_data;
   uint64_t _offset;
 
-  uint8_t _badCharacterTable[256];
-  uint8_t* _goodSuffixRule;
+  char _badCharacterTable[256];
+  char* _goodSuffixRule;
 
   void PopulateBadCharacterTable()
   {
-    for (int32_t i = 0; i < 256; ++i)
+    for (uint32_t i = 0; i < 256; ++i)
     {
       _badCharacterTable[i] = _patternLength;
     }
 
-    for (uint64_t i = 0; i < _patternLength - 1; ++i)
+    for (uint32_t i = 0; i < _patternLength - 1; ++i)
     {
-      _badCharacterTable[_pattern[i]] = _patternLength - 1 - i;
+      _badCharacterTable[static_cast<uint8_t>(_pattern[i])] = _patternLength - 1 - i;
     }
   }
 
@@ -134,12 +134,12 @@ private:
   {
     if (_goodSuffixRule == nullptr)
     {
-      _goodSuffixRule = new uint8_t[_patternLength];
+      _goodSuffixRule = new char[_patternLength];
     }
 
-    int64_t lastPrefixIndex = _patternLength - 1;
+    int32_t lastPrefixIndex = _patternLength - 1;
 
-    for (int64_t i = _patternLength - 1; i >= 0; i--)
+    for (int32_t i = _patternLength - 1; i >= 0; i--)
     {
       if (IsSuffixAlsoPrefix(i + 1))
       {
@@ -149,9 +149,9 @@ private:
       _goodSuffixRule[i] = lastPrefixIndex + _patternLength - 1 - i;
     }
 
-    for (int64_t i = 0; i < _patternLength; ++i)
+    for (uint32_t i = 0; i < _patternLength; ++i)
     {
-      int64_t suffixLength = SuffixLength(i);
+      uint32_t suffixLength = SuffixLength(i);
 
       if (_pattern[i - suffixLength] != _pattern[_patternLength - 1 - suffixLength])
       {
@@ -162,11 +162,11 @@ private:
 
   // IsSuffixAlsoPrefix('bbbxyzaaaxyz', 12, 9) = false
   // IsSuffixAlsoPrefix('xyzaaaxyz', 9, 6) = true
-  bool IsSuffixAlsoPrefix(uint64_t position)
+  bool IsSuffixAlsoPrefix(const uint32_t position)
   {
-    uint64_t suffixLength = _patternLength - position;
+    uint32_t suffixLength = _patternLength - position;
 
-    for (uint64_t i = 0; i < suffixLength; ++i)
+    for (uint32_t i = 0; i < suffixLength; ++i)
     {
       if (_pattern[i] != _pattern[position + i])
       {
@@ -179,9 +179,9 @@ private:
 
   // 'bbbxyzaaaxyz' length 12: SuffixLength(5) = 3
   // 'aaaxyzaaaxyz' length 12: SuffixLength(5) = 6
-  uint64_t SuffixLength(uint64_t position)
+  uint32_t SuffixLength(const uint32_t position)
   {
-    uint64_t i = 0;
+    uint32_t i = 0;
 
     while((_pattern[position - i] == _pattern[_patternLength - 1 - i]) && (i < position))
     {
@@ -200,7 +200,7 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  BoyerMooreSearch bms(reinterpret_cast<uint8_t*>(argv[1]), std::strlen(argv[1]));
+  BoyerMooreSearch bms(argv[1], std::strlen(argv[1]));
 
   for(int i = 2; i < argc; ++i)
   {
@@ -219,7 +219,7 @@ int main(int argc, char** argv)
 
     while (found)
     {
-      std::cout << "found " << std::string(reinterpret_cast<char*>(result.match), result.match_length)
+      std::cout << "found " << std::string(result.match, result.match_length)
                 << " at column " << result.column << std::endl;
       found = bms.FindNext(&result);
     }
