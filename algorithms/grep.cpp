@@ -12,12 +12,22 @@
 class BoyerMooreSearch
 {
 public:
+  struct Result
+  {
+    uint8_t* match;
+    uint64_t match_length;
+    uint64_t line;
+    uint64_t column;
+  };
+
   BoyerMooreSearch(const uint8_t* pattern, uint64_t patternLength) :
     _pattern(pattern),
     _patternLength(patternLength),
-    _offset(_patternLength - 1)
+    _offset(_patternLength - 1),
+    _goodSuffixRule(nullptr)
   {
     PopulateBadCharacterTable();
+    PopulateGoodSuffixTable();
   }
 
   virtual ~BoyerMooreSearch()
@@ -25,6 +35,11 @@ public:
     if (_mmap_data && munmap(_mmap_data, _filesize) != 0)
     {
       std::cout << "error unmapping file \"" << _filename << "\"" << std::endl;
+    }
+
+    if (_goodSuffixRule != nullptr)
+    {
+      delete[] _goodSuffixRule;
     }
   }
 
@@ -52,11 +67,12 @@ public:
     _mmap_data = static_cast<uint8_t*>(mmap(NULL, _filesize, PROT_READ, MAP_PRIVATE, _fd, 0));
   }
 
-  uint8_t* FindNext()
+  bool FindNext(Result* result)
   {
     if (_patternLength == 0)
     {
-      return _mmap_data;
+      *result = { _mmap_data, _filesize, 0, 0 };
+      return true;
     }
 
     while (_offset < _filesize)
@@ -71,7 +87,11 @@ public:
       if (j < 0)
       {
         _offset += (_patternLength + 1);
-        return _mmap_data + _offset - _patternLength;
+
+        // TODO(bryan) compute line numbers.
+        //   how does grep do this when so many bytes are skipped during search?
+        *result = { _mmap_data + _offset - _patternLength, _patternLength, 0, _offset - _patternLength + 1};
+        return true;
       }
 
       auto a = _badCharacterTable[_mmap_data[_offset]];
@@ -81,7 +101,7 @@ public:
       _offset += (a < b ? b : a);
     }
 
-    return nullptr;
+    return false;
   }
 
 private:
@@ -95,7 +115,7 @@ private:
   uint64_t _offset;
 
   uint8_t _badCharacterTable[256];
-  uint8_t _goodSuffixRule[256];
+  uint8_t* _goodSuffixRule;
 
   void PopulateBadCharacterTable()
   {
@@ -104,7 +124,7 @@ private:
       _badCharacterTable[i] = _patternLength;
     }
 
-    for (int32_t i = 0; i < _patternLength - 1; ++i)
+    for (uint64_t i = 0; i < _patternLength - 1; ++i)
     {
       _badCharacterTable[_pattern[i]] = _patternLength - 1 - i;
     }
@@ -112,17 +132,43 @@ private:
 
   void PopulateGoodSuffixTable()
   {
+    if (_goodSuffixRule == nullptr)
+    {
+      _goodSuffixRule = new uint8_t[_patternLength];
+    }
+
+    int64_t lastPrefixIndex = _patternLength - 1;
+
+    for (int64_t i = _patternLength - 1; i >= 0; i--)
+    {
+      if (IsSuffixAlsoPrefix(i + 1))
+      {
+        lastPrefixIndex = i + 1;
+      }
+
+      _goodSuffixRule[i] = lastPrefixIndex + _patternLength - 1 - i;
+    }
+
+    for (int64_t i = 0; i < _patternLength; ++i)
+    {
+      int64_t suffixLength = SuffixLength(i);
+
+      if (_pattern[i - suffixLength] != _pattern[_patternLength - 1 - suffixLength])
+      {
+        _goodSuffixRule[_patternLength - 1 - suffixLength] = _patternLength - 1 - i + suffixLength;
+      }
+    }
   }
 
   // IsSuffixAlsoPrefix('bbbxyzaaaxyz', 12, 9) = false
   // IsSuffixAlsoPrefix('xyzaaaxyz', 9, 6) = true
-  bool IsSuffixAlsoPrefix(uint8_t* word, uint64_t wordLength, uint64_t position)
+  bool IsSuffixAlsoPrefix(uint64_t position)
   {
-    uint64_t suffixLength = wordLength - position;
+    uint64_t suffixLength = _patternLength - position;
 
     for (uint64_t i = 0; i < suffixLength; ++i)
     {
-      if (word[i] != word[position + i])
+      if (_pattern[i] != _pattern[position + i])
       {
         return false;
       }
@@ -131,13 +177,13 @@ private:
     return true;
   }
 
-  // SuffixLength('bbbxyzaaaxyz', 12, 5) = 3
-  // SuffixLength('aaaxyzaaaxyz', 12, 5) = 6
-  uint64_t SuffixLength(uint8_t* word, uint64_t wordLength, uint64_t position)
+  // 'bbbxyzaaaxyz' length 12: SuffixLength(5) = 3
+  // 'aaaxyzaaaxyz' length 12: SuffixLength(5) = 6
+  uint64_t SuffixLength(uint64_t position)
   {
     uint64_t i = 0;
 
-    while((word[position - i] == word[wordLength - 1 - i]) && (i < position))
+    while((_pattern[position - i] == _pattern[_patternLength - 1 - i]) && (i < position))
     {
       ++i;
     }
@@ -168,10 +214,14 @@ int main(int argc, char** argv)
       continue;
     }
 
-    uint8_t* next = bms.FindNext();
-    while (next != nullptr)
+    BoyerMooreSearch::Result result;
+    bool found = bms.FindNext(&result);
+
+    while (found)
     {
-      next = bms.FindNext();
+      std::cout << "found " << std::string(reinterpret_cast<char*>(result.match), result.match_length)
+                << " at column " << result.column << std::endl;
+      found = bms.FindNext(&result);
     }
   }
 }
