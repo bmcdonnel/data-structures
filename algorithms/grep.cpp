@@ -15,7 +15,7 @@ public:
   BoyerMooreSearch(const uint8_t* pattern, uint64_t patternLength) :
     _pattern(pattern),
     _patternLength(patternLength),
-    _offset(0)
+    _offset(_patternLength - 1)
   {
     PopulateBadCharacterTable();
   }
@@ -59,23 +59,26 @@ public:
       return _mmap_data;
     }
 
-    // TODO(bryan) include _offset
-    int64_t i = _patternLength - 1;
-    while (i < _filesize)
+    while (_offset < _filesize)
     {
       int64_t j = _patternLength - 1;
-      while((_mmap_data[i] == _pattern[j]) && (j >= 0))
+      while((_mmap_data[_offset] == _pattern[j]) && (j >= 0))
       {
-        --i;
+        --_offset;
         --j;
       }
 
       if (j < 0)
       {
-        // TODO(bryan) set _offset
-        _offset += (i + 1 + _patternLength);
-        return _mmap_data + i + 1;
+        _offset += (_patternLength + 1);
+        return _mmap_data + _offset - _patternLength;
       }
+
+      auto a = _badCharacterTable[_mmap_data[_offset]];
+      auto b = _goodSuffixRule[j];
+
+      // move forward the max of those two values
+      _offset += (a < b ? b : a);
     }
 
     return nullptr;
@@ -92,6 +95,7 @@ private:
   uint64_t _offset;
 
   uint8_t _badCharacterTable[256];
+  uint8_t _goodSuffixRule[256];
 
   void PopulateBadCharacterTable()
   {
