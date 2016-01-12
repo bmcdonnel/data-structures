@@ -25,3 +25,7 @@ add_executable (grep grep.cpp)
 target_include_directories(grep PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries (grep LINK_PUBLIC utils)
 
+add_executable (maximal_subarray maximal_subarray.cpp)
+target_include_directories(maximal_subarray PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries (maximal_subarray LINK_PUBLIC utils)
+
