@@ -39,7 +39,8 @@ void invert_tree_stack(TreeNode* node)
 
   while(!node_stack.empty())
   {
-    TreeNode* n = node_stack.pop();
+    TreeNode* n = node_stack.top();
+    node_stack.pop();
 
     // swap the elements
     TreeNode* temp = n->left;
@@ -60,3 +61,7 @@ void invert_tree_stack(TreeNode* node)
   return;
 }
 
+int main(int argc, char** argv)
+{
+  return 0;
+}
