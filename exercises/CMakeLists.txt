@@ -1,4 +1,4 @@
-add_executable (delete_list_node delete_list_node.cpp)
+add_executable (invert_tree invert_tree.cpp)
 
 add_executable (move_zeroes move_zeroes.cpp)
 target_include_directories(move_zeroes PUBLIC ${PROJECT_SOURCE_DIR})
