@@ -1,3 +1,4 @@
+add_executable (has_duplicate has_duplicate.cpp)
 add_executable (invert_tree invert_tree.cpp)
 add_executable (valid_anagram valid_anagram.cpp)
 
