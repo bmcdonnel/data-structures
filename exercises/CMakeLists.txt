@@ -1,3 +1,4 @@
+add_executable (majority_element majority_element.cpp)
 add_executable (excel_column_number excel_column_number.cpp)
 add_executable (has_duplicate has_duplicate.cpp)
 add_executable (invert_tree invert_tree.cpp)
