@@ -1,3 +1,4 @@
+add_executable (remove_list_duplicates remove_list_duplicates.cpp)
 add_executable (reverse_linked_list reverse_linked_list.cpp)
 add_executable (roman_to_int roman_to_int.cpp)
 add_executable (hamming_weight hamming_weight.cpp)
