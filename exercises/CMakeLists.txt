@@ -1,3 +1,4 @@
+add_executable (merge_two_lists merge_two_lists.cpp)
 add_executable (is_ugly_number is_ugly_number.cpp)
 add_executable (remove_list_duplicates remove_list_duplicates.cpp)
 add_executable (reverse_linked_list reverse_linked_list.cpp)

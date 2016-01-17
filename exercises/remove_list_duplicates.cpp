@@ -74,6 +74,7 @@ int main(int argc, char** argv)
   if (argc < 2)
   {
     std::cout << "usage: " << argv[0] << " <link list integer values>" << std::endl;
+    return 1;
   }
 
   int size = argc - 1;
