@@ -1,3 +1,4 @@
+add_executable (queue_using_stacks queue_using_stacks.cpp)
 add_executable (is_power_of_two is_power_of_two.cpp)
 add_executable (merge_two_lists merge_two_lists.cpp)
 add_executable (is_ugly_number is_ugly_number.cpp)
