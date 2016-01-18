@@ -17,3 +17,7 @@ add_executable (move_zeroes move_zeroes.cpp)
 target_include_directories(move_zeroes PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(move_zeroes LINK_PUBLIC utils)
 
+add_executable (remove_array_duplicates remove_array_duplicates.cpp)
+target_include_directories(remove_array_duplicates PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(remove_array_duplicates LINK_PUBLIC utils)
+
