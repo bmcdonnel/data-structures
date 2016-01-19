@@ -1,3 +1,4 @@
+add_executable (tree_path_sum tree_path_sum.cpp)
 add_executable (tree_level_traversal tree_level_traversal.cpp)
 add_executable (queue_using_stacks queue_using_stacks.cpp)
 add_executable (is_power_of_two is_power_of_two.cpp)
