@@ -24,3 +24,7 @@ target_link_libraries(remove_array_duplicates LINK_PUBLIC utils)
 add_executable (plus_one plus_one.cpp)
 target_include_directories(plus_one PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(plus_one LINK_PUBLIC utils)
+
+add_executable (pascal_triangle pascal_triangle.cpp)
+target_include_directories(pascal_triangle PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(pascal_triangle LINK_PUBLIC utils)
