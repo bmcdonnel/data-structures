@@ -12,23 +12,20 @@ void pascal_triangle(std::vector<std::vector<int>>& result, const int depth, con
 
   if (depth == 0)
   {
-    result.push_back({1});
+    result[0] = {1};
   }
   else
   {
     int row_size = result[depth - 1].size() + 1;
-    result.push_back(std::vector<int>(row_size));
 
-    for (int i = 0; i < result[depth].size(); ++i)
+    result[depth].resize(row_size);
+
+    result[depth][0] = 1;
+    result[depth][row_size - 1] = 1;
+
+    for (int i = 1; i < row_size - 1; ++i)
     {
-      if (i == 0 || i == row_size - 1)
-      {
-        result[depth][i] = 1;
-      }
-      else
-      {
-        result[depth][i] = result[depth - 1][i] + result[depth - 1][i - 1];
-      }
+      result[depth][i] = result[depth - 1][i] + result[depth - 1][i - 1];
     }
   }
 
@@ -45,7 +42,7 @@ int main(int argc, char** argv)
 
   int n = std::atoi(argv[1]);
 
-  std::vector<std::vector<int>> pascal;
+  std::vector<std::vector<int>> pascal(n);
 
   pascal_triangle(pascal, 0, n);
 
