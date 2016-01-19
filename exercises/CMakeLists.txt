@@ -21,3 +21,6 @@ add_executable (remove_array_duplicates remove_array_duplicates.cpp)
 target_include_directories(remove_array_duplicates PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(remove_array_duplicates LINK_PUBLIC utils)
 
+add_executable (plus_one plus_one.cpp)
+target_include_directories(plus_one PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(plus_one LINK_PUBLIC utils)
