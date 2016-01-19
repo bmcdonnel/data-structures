@@ -2,6 +2,9 @@
 
 #include "utils/array_utils.h"
 
+// doesn't handle the final overflow carry
+// would need to allocate memory for a new array
+// or use vectors for their automatic memory management
 int* plus_one(int* digits, const int size)
 {
   int i = size - 1;
