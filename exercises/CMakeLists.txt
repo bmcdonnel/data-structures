@@ -31,3 +31,8 @@ target_link_libraries(plus_one LINK_PUBLIC utils)
 add_executable (pascal_triangle pascal_triangle.cpp)
 target_include_directories(pascal_triangle PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(pascal_triangle LINK_PUBLIC utils)
+
+add_executable (merge_sorted_arrays merge_sorted_arrays.cpp)
+target_include_directories(merge_sorted_arrays PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(merge_sorted_arrays LINK_PUBLIC utils)
+
