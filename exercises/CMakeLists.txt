@@ -1,3 +1,4 @@
+add_executable (reverse_bits reverse_bits.cpp)
 add_executable (is_int_palindrome is_int_palindrome.cpp)
 add_executable (queue_using_stacks queue_using_stacks.cpp)
 add_executable (is_power_of_two is_power_of_two.cpp)
