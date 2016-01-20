@@ -26,3 +26,9 @@ ListNode* find_intersection_node(ListNode* node_a, ListNode* node_b)
 
   return i;
 }
+
+int main(int argc, char** argv)
+{
+  return 0;
+}
+
