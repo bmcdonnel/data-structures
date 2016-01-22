@@ -1,3 +1,4 @@
+add_executable (rectangle_area rectangle_area.cpp)
 add_executable (reverse_bits reverse_bits.cpp)
 add_executable (is_int_palindrome is_int_palindrome.cpp)
 add_executable (queue_using_stacks queue_using_stacks.cpp)
