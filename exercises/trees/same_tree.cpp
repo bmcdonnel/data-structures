@@ -1,13 +1,6 @@
 #include <iostream>
 #include <stack>
 
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
 void same_tree(TreeNode* a, TreeNode* b)
 {
   if (!a || !b)

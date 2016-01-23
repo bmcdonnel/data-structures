@@ -1,12 +1,9 @@
 #include <iostream>
 #include <stack>
 
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
+#include "utils/tree_utils.h"
+
+using namespace utils;
 
 /**
  * This will recursively invert the tree; However, it's limited to

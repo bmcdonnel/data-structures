@@ -6,5 +6,6 @@ set (CMAKE_CXX_FLAGS "-Werror -Wall -g -O0 -std=c++11")
 add_subdirectory (utils)
 add_subdirectory (algorithms)
 add_subdirectory (exercises)
+add_subdirectory (exercises/trees)
 add_subdirectory (sorting)
 

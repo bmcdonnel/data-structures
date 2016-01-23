@@ -2,12 +2,9 @@
 #include <vector>
 #include <queue>
 
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
+#include "utils/tree_utils.h"
+
+using namespace utils;
 
 void level_traversal(const TreeNode* node, const int depth, std::vector<std::vector<int>>& result)
 {
@@ -24,28 +21,6 @@ void level_traversal(const TreeNode* node, const int depth, std::vector<std::vec
   result[depth].push_back(node->val);
   level_traversal(node->left, depth + 1, result);
   level_traversal(node->right, depth + 1, result);
-}
-
-TreeNode* create_tree_node(char** array, int size, int i)
-{
-  if (i >= size)
-  {
-    return nullptr;
-  }
-
-  if (array[i] && array[i][0] == 'x')
-  {
-    return nullptr;
-  }
-
-  int value = std::atoi(array[i]);
-
-  TreeNode* node = new TreeNode(value);
-
-  node->left = create_tree_node(array, size, (2 * i) + 1);
-  node->right = create_tree_node(array, size, (2 * i) + 2);
-
-  return node;
 }
 
 int main(int argc, char** argv)
