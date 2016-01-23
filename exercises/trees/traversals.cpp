@@ -5,35 +5,39 @@
 
 using namespace utils;
 
-void level_traversal(const TreeNode* node, const int depth, std::vector<std::vector<int>>& result)
+void do_in_order(TreeNode* node)
 {
-  if (!node)
+  std::vector<int> results;
+
+  in_order_traversal(node, &results);
+
+  std::cout << "in order: ";
+
+  for (const int value : results)
   {
-    return;
+    std::cout << value << " ";
   }
 
-  if (depth >= result.size())
-  {
-    result.push_back(std::vector<int>());
-  }
-
-  result[depth].push_back(node->val);
-  level_traversal(node->left, depth + 1, result);
-  level_traversal(node->right, depth + 1, result);
+  std::cout << std::endl;
 }
 
-void inorder_traversal(TreeNode* node, std::vector<int>* traversal)
+void do_level_order(TreeNode* node)
 {
-  if (!node)
+  std::vector<std::vector<int>> v;
+
+  level_traversal(node, 0, v);
+
+  std::cout << "level order:" << std::endl;
+
+  for (auto i : v)
   {
-    return;
+    std::cout << "[ ";
+    for (int j : i)
+    {
+      std::cout << j << " ";
+    }
+    std::cout << " ]" << std::endl;
   }
-
-  inorder_traversal(node->left, traversal);
-
-  traversal->push_back(node->val);
-
-  inorder_traversal(node->right, traversal);
 }
 
 int main(int argc, char** argv)
@@ -48,16 +52,8 @@ int main(int argc, char** argv)
 
   TreeNode* root = create_tree_node(&argv[1], size, 0);
 
-  std::vector<int> results;
-
-  inorder_traversal(root, &results);
-
-  for (const int value : results)
-  {
-    std::cout << value << " ";
-  }
-
-  std::cout << std::endl;
+  do_in_order(root);
+  do_level_order(root);
 
   return 0;
 }

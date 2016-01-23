@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <vector>
 
 namespace utils {
 
@@ -36,30 +37,43 @@ TreeNode* create_tree_node(char** array, int size, int i)
   return node;
 }
 
-void print_binary_tree(TreeNode* node, const int indent = 0)
+void level_traversal(const TreeNode* node, const int depth, std::vector<std::vector<int>>& result)
 {
   if (!node)
   {
     return;
   }
 
-  if (node->left)
+  if (depth >= result.size())
   {
-    print_binary_tree(node->left, indent + 4);
+    result.push_back(std::vector<int>());
   }
 
-  if (node->right)
+  result[depth].push_back(node->val);
+  level_traversal(node->left, depth + 1, result);
+  level_traversal(node->right, depth + 1, result);
+}
+
+void in_order_traversal(TreeNode* node, std::vector<int>* traversal)
+{
+  if (!node)
   {
-    print_binary_tree(node->right, indent + 4);
+    return;
   }
 
-  if (indent)
-  {
-    std::cout << std::setw(indent) << ' ';
-  }
+  in_order_traversal(node->left, traversal);
 
-  std::cout << node->val << std::endl;
+  traversal->push_back(node->val);
 
+  in_order_traversal(node->right, traversal);
+}
+
+void pre_order_traversal(TreeNode* node)
+{
+}
+
+void post_order_traversal(TreeNode* node)
+{
 }
 
 } // namespace utils
