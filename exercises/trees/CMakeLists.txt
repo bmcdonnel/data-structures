@@ -18,3 +18,7 @@ add_executable (binary_tree_paths binary_tree_paths.cpp)
 target_include_directories(binary_tree_paths PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(binary_tree_paths LINK_PUBLIC utils)
 
+add_executable (inorder_traversal inorder_traversal.cpp)
+target_include_directories(inorder_traversal PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(inorder_traversal LINK_PUBLIC utils)
+

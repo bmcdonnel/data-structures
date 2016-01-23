@@ -1,6 +1,9 @@
 #ifndef TREE_UTILS_H_
 #define TREE_UTILS_H_
 
+#include <iostream>
+#include <iomanip>
+
 namespace utils {
 
 struct TreeNode
@@ -31,6 +34,32 @@ TreeNode* create_tree_node(char** array, int size, int i)
   node->right = create_tree_node(array, size, (2 * i) + 2);
 
   return node;
+}
+
+void print_binary_tree(TreeNode* node, const int indent = 0)
+{
+  if (!node)
+  {
+    return;
+  }
+
+  if (node->left)
+  {
+    print_binary_tree(node->left, indent + 4);
+  }
+
+  if (node->right)
+  {
+    print_binary_tree(node->right, indent + 4);
+  }
+
+  if (indent)
+  {
+    std::cout << std::setw(indent) << ' ';
+  }
+
+  std::cout << node->val << std::endl;
+
 }
 
 } // namespace utils
