@@ -5,6 +5,23 @@
 
 using namespace utils;
 
+void level_traversal(const TreeNode* node, const int depth, std::vector<std::vector<int>>& result)
+{
+  if (!node)
+  {
+    return;
+  }
+
+  if (depth >= result.size())
+  {
+    result.push_back(std::vector<int>());
+  }
+
+  result[depth].push_back(node->val);
+  level_traversal(node->left, depth + 1, result);
+  level_traversal(node->right, depth + 1, result);
+}
+
 void inorder_traversal(TreeNode* node, std::vector<int>* traversal)
 {
   if (!node)
