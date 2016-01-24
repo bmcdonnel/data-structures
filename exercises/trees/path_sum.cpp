@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 
   int size = argc - 2;
 
-  TreeNode* root = create_tree_node(&argv[2], size, 0);
+  TreeNode* root = create_tree_node(&argv[2], size);
 
   if (has_path_sum(root, 0, target_sum))
   {

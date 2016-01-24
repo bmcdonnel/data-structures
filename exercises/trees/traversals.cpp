@@ -5,6 +5,38 @@
 
 using namespace utils;
 
+void do_pre_order(TreeNode* node)
+{
+  std::vector<int> results;
+
+  pre_order_traversal(node, &results);
+
+  std::cout << "pre order: ";
+
+  for (const int value : results)
+  {
+    std::cout << value << " ";
+  }
+
+  std::cout << std::endl;
+}
+
+void do_post_order(TreeNode* node)
+{
+  std::vector<int> results;
+
+  post_order_traversal(node, &results);
+
+  std::cout << "post order: ";
+
+  for (const int value : results)
+  {
+    std::cout << value << " ";
+  }
+
+  std::cout << std::endl;
+}
+
 void do_in_order(TreeNode* node)
 {
   std::vector<int> results;
@@ -23,13 +55,13 @@ void do_in_order(TreeNode* node)
 
 void do_level_order(TreeNode* node)
 {
-  std::vector<std::vector<int>> v;
+  std::vector<std::vector<int>> results;
 
-  level_traversal(node, 0, v);
+  level_traversal(node, results);
 
   std::cout << "level order:" << std::endl;
 
-  for (auto i : v)
+  for (auto i : results)
   {
     std::cout << "[ ";
     for (int j : i)
@@ -50,8 +82,10 @@ int main(int argc, char** argv)
 
   int size = argc - 1;
 
-  TreeNode* root = create_tree_node(&argv[1], size, 0);
+  TreeNode* root = create_tree_node(&argv[1], size);
 
+  do_pre_order(root);
+  do_post_order(root);
   do_in_order(root);
   do_level_order(root);
 

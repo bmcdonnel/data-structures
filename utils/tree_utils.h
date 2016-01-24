@@ -15,7 +15,7 @@ struct TreeNode
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-TreeNode* create_tree_node(char** array, int size, int i)
+TreeNode* create_tree_node(char* const* array, const int size, const int i = 0)
 {
   if (i >= size)
   {
@@ -37,7 +37,7 @@ TreeNode* create_tree_node(char** array, int size, int i)
   return node;
 }
 
-void level_traversal(const TreeNode* node, const int depth, std::vector<std::vector<int>>& result)
+void level_traversal(TreeNode const* node, std::vector<std::vector<int>>& result, const int depth = 0)
 {
   if (!node)
   {
@@ -50,8 +50,8 @@ void level_traversal(const TreeNode* node, const int depth, std::vector<std::vec
   }
 
   result[depth].push_back(node->val);
-  level_traversal(node->left, depth + 1, result);
-  level_traversal(node->right, depth + 1, result);
+  level_traversal(node->left, result, depth + 1);
+  level_traversal(node->right, result, depth + 1);
 }
 
 void in_order_traversal(TreeNode* node, std::vector<int>* traversal)
@@ -68,12 +68,32 @@ void in_order_traversal(TreeNode* node, std::vector<int>* traversal)
   in_order_traversal(node->right, traversal);
 }
 
-void pre_order_traversal(TreeNode* node)
+void pre_order_traversal(TreeNode* node, std::vector<int>* traversal)
 {
+  if (!node)
+  {
+    return;
+  }
+
+  traversal->push_back(node->val);
+
+  in_order_traversal(node->left, traversal);
+
+  in_order_traversal(node->right, traversal);
 }
 
-void post_order_traversal(TreeNode* node)
+void post_order_traversal(TreeNode* node, std::vector<int>* traversal)
 {
+  if (!node)
+  {
+    return;
+  }
+
+  in_order_traversal(node->left, traversal);
+
+  in_order_traversal(node->right, traversal);
+
+  traversal->push_back(node->val);
 }
 
 } // namespace utils

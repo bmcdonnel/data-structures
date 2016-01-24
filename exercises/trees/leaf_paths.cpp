@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 
   int size = argc - 1;
 
-  TreeNode* root = create_tree_node(&argv[1], size, 0);
+  TreeNode* root = create_tree_node(&argv[1], size);
 
   std::vector<std::string> paths;
 

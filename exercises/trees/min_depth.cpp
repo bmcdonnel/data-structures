@@ -41,7 +41,7 @@ int main(int argc, char** argv)
 
   int size = argc - 2;
 
-  TreeNode* root = create_tree_node(&argv[1], size, 0);
+  TreeNode* root = create_tree_node(&argv[1], size);
 
   std::cout << "min depth: " << min_depth(root) << std::endl;
   return 0;
