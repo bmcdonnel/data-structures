@@ -37,6 +37,19 @@ TreeNode* create_tree_node(char* const* array, const int size, const int i = 0)
   return node;
 }
 
+bool is_same_tree(TreeNode const* a, TreeNode const* b)
+{
+  if (!a || !b)
+  {
+    // if either one is null, return whether they're the same
+    return a == b;
+  }
+
+  return (a->val == b->val &&
+          is_same_tree(a->left, b->left) &&
+          is_same_tree(a->right, b->right));
+}
+
 void level_traversal(TreeNode const* node, std::vector<std::vector<int>>& result, const int depth = 0)
 {
   if (!node)
@@ -77,9 +90,9 @@ void pre_order_traversal(TreeNode* node, std::vector<int>* traversal)
 
   traversal->push_back(node->val);
 
-  in_order_traversal(node->left, traversal);
+  pre_order_traversal(node->left, traversal);
 
-  in_order_traversal(node->right, traversal);
+  pre_order_traversal(node->right, traversal);
 }
 
 void post_order_traversal(TreeNode* node, std::vector<int>* traversal)
@@ -89,9 +102,9 @@ void post_order_traversal(TreeNode* node, std::vector<int>* traversal)
     return;
   }
 
-  in_order_traversal(node->left, traversal);
+  post_order_traversal(node->left, traversal);
 
-  in_order_traversal(node->right, traversal);
+  post_order_traversal(node->right, traversal);
 
   traversal->push_back(node->val);
 }

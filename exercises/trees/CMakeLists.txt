@@ -18,3 +18,7 @@ add_executable (traversals traversals.cpp)
 target_include_directories(traversals PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(traversals LINK_PUBLIC utils)
 
+add_executable (from_traversals from_traversals.cpp)
+target_include_directories(from_traversals PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(from_traversals LINK_PUBLIC utils)
+
