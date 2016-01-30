@@ -34,3 +34,7 @@ add_executable (merge_sorted_arrays merge_sorted_arrays.cpp)
 target_include_directories(merge_sorted_arrays PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(merge_sorted_arrays LINK_PUBLIC utils)
 
+add_executable (odd_man_out odd_man_out.cpp)
+target_include_directories(odd_man_out PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(odd_man_out LINK_PUBLIC utils)
+
