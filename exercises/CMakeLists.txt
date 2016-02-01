@@ -1,3 +1,4 @@
+add_executable (valid_number valid_number.cpp)
 add_executable (rectangle_area rectangle_area.cpp)
 add_executable (reverse_bits reverse_bits.cpp)
 add_executable (is_int_palindrome is_int_palindrome.cpp)
