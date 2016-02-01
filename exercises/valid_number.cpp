@@ -1,13 +1,5 @@
 #include <iostream>
 
-/*
- * TODO(bryan) doesn't work for some special cases:
- *   1) -
- *   2) -.
- *   3) -.e
- *   4) 2.6e
- *   5) 2.6e-
- */
 bool is_valid_number(const char* number_string)
 {
   bool valid = true;
