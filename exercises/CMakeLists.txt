@@ -16,6 +16,10 @@ add_executable (excel_column_number excel_column_number.cpp)
 add_executable (has_duplicate has_duplicate.cpp)
 add_executable (valid_anagram valid_anagram.cpp)
 
+add_executable (sort_colors sort_colors.cpp)
+target_include_directories(sort_colors PUBLIC ${PROJECT_SOURCE_DIR})
+target_link_libraries(sort_colors LINK_PUBLIC utils)
+
 add_executable (move_zeroes move_zeroes.cpp)
 target_include_directories(move_zeroes PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(move_zeroes LINK_PUBLIC utils)
