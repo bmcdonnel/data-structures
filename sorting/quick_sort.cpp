@@ -1,38 +1,44 @@
 #include "quick_sort.h"
 #include "utils/array_utils.h"
 
+#include <iostream>
+
 namespace sorting
 {
-  void quick_sort(int32_t* array, uint32_t length)
+  void quick_sort(int32_t* array, const uint32_t low, const uint32_t high)
   {
-    if (length < 2) { return; }
+    if (low >= high) { return; }
 
-    int32_t pivot_value = array[length / 2];
+    const uint32_t p = partition(array, low, high);
 
-    uint32_t left = 0;
-    uint32_t right = length - 1;
+    quick_sort(array, low, p);
+    quick_sort(array, p + 1, high);
+  }
 
-    while (left <= right)
+  uint32_t partition(int32_t* array, const uint32_t low, const uint32_t high)
+  {
+    const uint32_t pivot = array[low];
+    uint32_t i = low - 1;
+    uint32_t j = high + 1;
+
+    while (true)
     {
-      while (array[left] < pivot_value)
+      do
       {
-        left++;
+        i++;
+      } while (array[i] < pivot);
+
+      do
+      {
+        j--;
+      } while (array[j] > pivot);
+
+      if (i >= j)
+      {
+        return j;
       }
 
-      while (array[right] > pivot_value)
-      {
-        right--;
-      }
-
-      if (left >= right)
-      {
-        break;
-      }
-
-      utils::swap(&array[left], &array[right]);
+      utils::swap(&array[i], &array[j]);
     }
-
-    quick_sort(array, left);
-    quick_sort(array + left, length - left);
   }
 }

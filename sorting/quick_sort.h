@@ -4,8 +4,8 @@
 #include <cstdint>
 
 namespace sorting {
-  void swap(int32_t* x, int32_t* y);
-  void quick_sort(int32_t* array, uint32_t length);
+  void quick_sort(int32_t* array, const uint32_t low, const uint32_t high);
+  uint32_t partition(int32_t* array, const uint32_t low, const uint32_t high);
 }
 
 #endif

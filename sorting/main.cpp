@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 {
   if (argc < 3)
   {
-    std::cout << "usage: " << argv[0] << " -(merge|quick) <arbitrarily long list of integers>" << std::endl;
+    std::cout << "usage: " << argv[0] << " --(merge|quick) <arbitrarily long list of integers>" << std::endl;
     return 1;
   }
 
@@ -26,16 +26,16 @@ int main(int argc, char** argv)
   {
     std::cout << "before: " << utils::array_to_string(array, length) << std::endl;
 
-    if (std::strcmp(argv[1], "-merge") == 0)
+    if (std::strcmp(argv[1], "--merge") == 0)
     {
       int32_t aux[length];
       std::memset(aux, 0, length);
 
       sorting::merge_sort(array, aux, 0, length - 1);
     }
-    else if (std::strcmp(argv[1], "-quick") == 0)
+    else if (std::strcmp(argv[1], "--quick") == 0)
     {
-      sorting::quick_sort(array, length);
+      sorting::quick_sort(array, 0, length - 1);
     }
     else
     {
