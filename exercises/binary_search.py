@@ -14,7 +14,11 @@ def search_index(nums, target):
         return i + search_index(nums[i:], target)
 
 if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print 'usage: {} <desired value> <sorted list of integers>'
+        sys.exit(0)
+
     result = search_index([int(x) for x in sys.argv[2:]], int(sys.argv[1]))
 
-    print '{} -> index {}'.format(sys.argv[1], result)
+    print '{} is at index {}'.format(sys.argv[1], result)
 

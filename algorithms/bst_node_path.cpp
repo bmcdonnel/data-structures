@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
   if (argc < 5)
   {
-    std::cout << "usage: " << argv[0] << "(value A) (value B) <list of values>" << std::endl;
+    std::cout << "usage: " << argv[0] << " (value A) (value B) <list of values>" << std::endl;
     return 1;
   }
 

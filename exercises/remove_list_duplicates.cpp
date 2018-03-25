@@ -34,7 +34,7 @@ ListNode* remove_list_duplicates(ListNode* head)
   }
 
   // the value at each key doesn't really matter, but
-  // we might as well store the point to the node where the
+  // we might as well store the pointer to the node where the
   // value came from; all we really want is the O(1) look up
   std::unordered_map<int, ListNode*> seen;
 

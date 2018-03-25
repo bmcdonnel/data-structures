@@ -2,6 +2,11 @@
 
 #include "utils/array_utils.h"
 
+/*
+ * This is just a special case of quick sort:
+ *  - make a single quick sort pass through the array
+ *    with a pivot value of 0
+ */
 void move_zeroes(int* array, int length)
 {
   if (length < 2) return;

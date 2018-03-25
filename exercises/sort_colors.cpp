@@ -27,6 +27,10 @@ void mini_sort(const int target, int* array, int& left, int& right)
   }
 }
 
+/*
+ * This is another special case of quick sort:
+ *  - the target value is the pivot
+ */
 void sort_colors(int* array, int length)
 {
   if (length < 2) return;
@@ -34,10 +38,12 @@ void sort_colors(int* array, int length)
   int left = 0;
   int right = length - 1;
 
+  // one quick sort iteration with a pivot of 2
   mini_sort(2, array, left, right);
 
   left = 0;
 
+  // another quick sort iteration with a pivot of 1
   mini_sort(1, array, left, right);
 }
 

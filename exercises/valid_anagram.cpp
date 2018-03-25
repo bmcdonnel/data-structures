@@ -7,25 +7,32 @@ bool is_valid_anagram(const std::string& a, const std::string& b)
     return false;
   }
 
-  int count[52] = {0};
+  // size of 256 for all possible asci characters
+  int character_count[256] = {0};
 
   const char* a_str = a.c_str();
   const char* b_str = b.c_str();
 
+  // at this point, both strings are know to be the same size
   for (int i = 0; i < a.size(); ++i)
   {
-    count[a_str[i] - 'a']++;
-    count[b_str[i] - 'a']--;
+    // increment the count for each of A's characters
+    character_count[a_str[i] - 'a']++;
+    // decrement the count for each of A's characters
+    character_count[b_str[i] - 'a']--;
   }
 
-  for (int i = 0; i < 52; ++i)
+  for (int i = 0; i < 256; ++i)
   {
-    if (count[i])
+    if (character_count[i])
     {
+      // if any character has a non-zero count, the
+      // two strings are not anagrams of each other
       return false;
     }
   }
 
+  // success
   return true;
 }
 
@@ -33,7 +40,7 @@ int main(int argc, char** argv)
 {
   if (argc != 3)
   {
-    std::cout << "usage: " << argv[0] << " <word a> <word b>" << std::endl;
+    std::cout << "usage: " << argv[0] << " <alpha-numeric word A> <alpha-numeric word B>" << std::endl;
     return 1;
   }
 

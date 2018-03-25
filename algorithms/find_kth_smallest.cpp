@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 {
   if (argc < 3)
   {
-    std::cout << "usage: " << argv[0] << " (k value) <list of integers>" << std::endl;
+    std::cout << "usage: " << argv[0] << " (k value) <unsorted list of integers>" << std::endl;
     return 1;
   }
 
