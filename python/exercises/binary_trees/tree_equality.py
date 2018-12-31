@@ -10,10 +10,10 @@ def are_trees_equal(tree1, tree2):
             are_trees_equal(tree1.right, tree2.right))
 
 if __name__ ==  "__main__":
-    values = [int(x) for x in input("Enter first tree (implicit ordering): ").split(" ")]
+    values = input("Enter first tree (implicit ordering; use 'x' for empty node): ").split(" ")
     tree1 = Node.build_from_implicitly_ordered_list(values)
 
-    values = [int(x) for x in input("Enter second tree (implicit ordering): ").split(" ")]
+    values = input("Enter second tree (implicit ordering; use 'x' for empty node): ").split(" ")
     tree2 = Node.build_from_implicitly_ordered_list(values)
 
     result = are_trees_equal(tree1, tree2)

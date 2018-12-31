@@ -12,7 +12,7 @@ def traverse_inorder(tree):
     traverse_inorder(tree.right)
 
 if __name__ ==  "__main__":
-    values = [int(x) for x in input("Enter tree (implicit ordering): ").split(" ")]
+    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")
     tree = Node.build_from_implicitly_ordered_list(values)
 
     traverse_inorder(tree)

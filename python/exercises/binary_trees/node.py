@@ -10,7 +10,7 @@ class Node(object):
 
     @staticmethod
     def __build_from_implicit_list(values, i):
-        if i >= len(values):
+        if i >= len(values) or values[i].lower() == "x":
             return None
 
         node = Node(values[i])

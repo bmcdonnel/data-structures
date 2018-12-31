@@ -11,7 +11,7 @@ def tree_height(tree):
     return max(left_height, right_height) + 1
 
 if __name__ ==  "__main__":
-    values = [int(x) for x in input("Enter tree (implicit ordering): ").split(" ")]
+    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")
     tree = Node.build_from_implicitly_ordered_list(values)
 
     result = tree_height(tree)
