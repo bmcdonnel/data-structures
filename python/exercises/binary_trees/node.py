@@ -18,3 +18,6 @@ class Node(object):
         node.right = Node.__build_from_implicit_list(values, (2 * i) + 2)
 
         return node
+
+    def __str__(self):
+        return str(self.value)
