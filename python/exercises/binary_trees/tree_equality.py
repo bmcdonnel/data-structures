@@ -1,13 +1,13 @@
 import sys
 from exercises.binary_trees.node import Node
 
-def are_trees_equal(tree1, tree2):
-    if tree1 == None and tree2 == None:
+def are_trees_equal(node1, node2):
+    if node1 == None and node2 == None:
         return True
 
-    return (tree1.value == tree2.value and
-            are_trees_equal(tree1.left, tree2.left) and
-            are_trees_equal(tree1.right, tree2.right))
+    return (node1.value == node2.value and
+            are_nodes_equal(node1.left, node2.left) and
+            are_nodes_equal(node1.right, node2.right))
 
 if __name__ ==  "__main__":
     values = input("Enter first tree (implicit ordering; use 'x' for empty node): ").split(" ")

@@ -1,15 +1,15 @@
 import sys
 from exercises.binary_trees.node import Node
 
-def traverse_inorder(tree):
-    if tree == None:
+def traverse_inorder(node):
+    if node == None:
         return
 
-    traverse_inorder(tree.left)
+    traverse_inorder(node.left)
 
-    print(tree)
+    print(node)
 
-    traverse_inorder(tree.right)
+    traverse_inorder(node.right)
 
 if __name__ ==  "__main__":
     values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")

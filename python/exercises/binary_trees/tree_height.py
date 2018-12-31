@@ -1,12 +1,12 @@
 import sys
 from exercises.binary_trees.node import Node
 
-def tree_height(tree):
-    if tree == None:
+def tree_height(node):
+    if node == None:
         return 0
 
-    left_height = tree_height(tree.left)
-    right_height = tree_height(tree.right)
+    left_height = tree_height(node.left)
+    right_height = tree_height(node.right)
 
     return max(left_height, right_height) + 1
 

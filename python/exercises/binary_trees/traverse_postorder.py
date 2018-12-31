@@ -1,13 +1,13 @@
 import sys
 from exercises.binary_trees.node import Node
 
-def traverse_postorder(tree):
-    if tree == None:
+def traverse_postorder(node):
+    if node == None:
         return
 
-    traverse_postorder(tree.left)
-    traverse_postorder(tree.right)
-    print(tree)
+    traverse_postorder(node.left)
+    traverse_postorder(node.right)
+    print(node)
 
 if __name__ ==  "__main__":
     values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")
