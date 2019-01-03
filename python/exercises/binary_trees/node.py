@@ -13,7 +13,7 @@ class Node(object):
         if i >= len(values) or values[i].lower() == "x":
             return None
 
-        node = Node(values[i])
+        node = Node(int(values[i]))
         node.left = Node.__build_from_implicit_list(values, (2 * i) + 1)
         node.right = Node.__build_from_implicit_list(values, (2 * i) + 2)
 
