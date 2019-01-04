@@ -10,7 +10,7 @@ def traverse_preorder(node):
     traverse_preorder(node.right)
 
 if __name__ ==  "__main__":
-    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")
+    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").strip().split(" ")
     tree = Node.build_from_implicitly_ordered_list(values)
 
     traverse_preorder(tree)

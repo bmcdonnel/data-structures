@@ -25,7 +25,7 @@ def __width(node, level, width_dict):
     __width(node.right, level + 1, width_dict)
 
 if __name__ ==  "__main__":
-    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")
+    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").strip().split(" ")
     tree = Node.build_from_implicitly_ordered_list(values)
 
     width = tree_width(tree)

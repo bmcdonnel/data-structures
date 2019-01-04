@@ -26,7 +26,7 @@ def __top_view(node, distance, level, distances):
     __top_view(node.right, distance + 1, level + 1, distances)
 
 if __name__ ==  "__main__":
-    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")
+    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").strip().split(" ")
     tree = Node.build_from_implicitly_ordered_list(values)
 
     traverse_top_view(tree)

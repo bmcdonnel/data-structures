@@ -18,7 +18,7 @@ def __left_view(node, level, level_dict):
     __left_view(node.right, level + 1, level_dict)
 
 if __name__ ==  "__main__":
-    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").split(" ")
+    values = input("Enter tree (implicit ordering; use 'x' for empty node): ").strip().split(" ")
     tree = Node.build_from_implicitly_ordered_list(values)
 
     traverse_left_view(tree)
