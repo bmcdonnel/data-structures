@@ -1,5 +1,5 @@
 import sys
-from exercises.binary_trees.node import Node
+from exercises.common.node import Node
 
 def are_trees_equal(node1, node2):
     if node1 == None and node2 == None:

@@ -1,5 +1,5 @@
 import sys
-from exercises.binary_trees.node import Node
+from exercises.common.node import Node
 
 # Given a binary tree, print the top view of the nodes. Assume the left and right
 #   child of a node line up directly with that node's parent.

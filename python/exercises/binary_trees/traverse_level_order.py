@@ -1,6 +1,6 @@
 import sys
 from queue import Queue
-from exercises.binary_trees.node import Node
+from exercises.common.node import Node
 
 def traverse_level_order(tree):
     if tree == None:

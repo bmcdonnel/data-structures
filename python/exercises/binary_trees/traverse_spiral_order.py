@@ -1,6 +1,6 @@
 import sys
 from collections import deque
-from exercises.binary_trees.node import Node
+from exercises.common.node import Node
 
 def traverse_spiral_order(tree):
     if tree == None:

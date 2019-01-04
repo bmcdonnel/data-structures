@@ -1,5 +1,5 @@
 import sys
-from exercises.binary_trees.node import Node
+from exercises.common.node import Node
 
 def traverse_preorder(node):
     if node == None:

@@ -1,5 +1,5 @@
 import sys
-from exercises.binary_trees.node import Node
+from exercises.common.node import Node
 
 def max_sum_path(node):
     sum_dict = dict()
