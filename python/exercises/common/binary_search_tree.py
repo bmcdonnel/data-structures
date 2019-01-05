@@ -5,8 +5,7 @@ class BinarySearchTree(object):
         self.root = None
 
     def __str__(self):
-        _print_tree(self.root, 0)
-        return ""
+        return str(self.root)
 
     def insert(self, value):
         v = int(value)
@@ -15,6 +14,10 @@ class BinarySearchTree(object):
             _insert(self.root, v)
         else:
             self.root = Node(v)
+
+    def pretty_print(self):
+        _print_tree(self.root, 0)
+        print("\n")
 
     @staticmethod
     def build_from_list(values):
