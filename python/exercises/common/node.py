@@ -1,4 +1,4 @@
-class Node(object):
+class Node:
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -11,13 +11,13 @@ class Node(object):
     def height(self):
         return _node_height(self)
 
-    def max_width(node):
+    def max_width(self):
         width_dict = dict()
 
-        _node_width(node, 0, width_dict)
+        _node_width(self, 0, width_dict)
 
         result = 0
-        for key, value in width_dict.items():
+        for _, value in width_dict.items():
             result = max(result, value)
 
         return result

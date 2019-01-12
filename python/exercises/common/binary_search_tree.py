@@ -1,6 +1,6 @@
 from exercises.common.node import Node
 
-class BinarySearchTree(object):
+class BinarySearchTree:
     def __init__(self):
         self.root = None
 
@@ -8,13 +8,13 @@ class BinarySearchTree(object):
         return str(self.root)
 
     def insert(self, value):
-        v = int(value)
+        val = int(value)
 
         if self.root:
-            _insert(self.root, v)
+            _insert(self.root, val)
             self.root = _rebalance(self.root)
         else:
-            self.root = Node(v)
+            self.root = Node(val)
 
     def pretty_print(self):
         _print_tree(self.root, 0)
@@ -51,7 +51,8 @@ def _rebalance(node):
 
     if balance == -2:
         return _rotate_right(node)
-    elif balance == 2:
+
+    if balance == 2:
         return _rotate_left(node)
 
     return node
@@ -79,7 +80,7 @@ def _print_tree(node, space_count):
     _print_tree(node.right, space_count)
 
     print()
-    for i in range(5, space_count):
+    for _ in range(5, space_count):
         print(" ", end="")
 
     print(node.value, end="")
