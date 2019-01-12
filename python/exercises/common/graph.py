@@ -14,7 +14,10 @@ class Graph:
 
         return vertex
 
-    def add_edge(self, from_key, to_key, weight):
+    def get_vertex(self, key):
+        return self._vertices.get(key, None)
+
+    def add_edge(self, from_key, to_key, distance):
         if from_key not in self._vertices:
             self.add_vertex(from_key)
 
@@ -25,17 +28,20 @@ class Graph:
 
         to_vertex = self._vertices[to_key]
 
-        from_vertex.add_neighbor(to_vertex, weight)
+        from_vertex.add_neighbor(to_vertex, distance)
 
         if self.is_bidirectional():
-            to_vertex.add_neighbor(from_vertex, weight)
+            to_vertex.add_neighbor(from_vertex, distance)
+
+    def get_vertices(self):
+        return self._vertices.values()
 
     @staticmethod
     def build_from_list(values):
         return Graph()
 
     def __str__(self):
-        return "\n".join([str(v) for v in self])
+        return "\n".join(["{} neighbors: {}".format(v, str([x for x in v.neighbors()])) for v in self])
 
     def __iter__(self):
         return iter(self._vertices.values())
