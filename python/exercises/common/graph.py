@@ -35,4 +35,10 @@ class Graph:
         return Graph()
 
     def __str__(self):
-        return "\n".join([str(v) for v in self._vertices.values()])
+        return "\n".join([str(v) for v in self])
+
+    def __iter__(self):
+        return iter(self._vertices.values())
+
+    def __contains__(self, vertex):
+        return vertex in self._vertices
