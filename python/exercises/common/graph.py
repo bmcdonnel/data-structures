@@ -1,9 +1,9 @@
 from exercises.common.vertex import Vertex
 
 class Graph:
-    def __init__(self, is_bidirectional=True):
+    def __init__(self, bidirectional=True):
         self._vertices = {}
-        self._is_bidirectional = True
+        self._is_bidirectional = bidirectional
 
     def is_bidirectional(self):
         return self._is_bidirectional
