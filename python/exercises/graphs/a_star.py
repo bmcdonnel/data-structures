@@ -1,81 +1,35 @@
 import sys
+from exercises.common.maze import maze_input
 
-class Node:
-    def __init__(self, position=None, value=None, parent=None):
-        self.position = position
-        self.value = value
-        self.parent = parent
-        self.neighbors = []
+def a_star(maze, start, end):
+    open_nodes = []
+    closed_nodes = []
 
-        self.f = 0
-        self.g = 0
-        self.h = 0
+    open_nodes.append(start)
 
-    def __eq__(self, other):
-        return self.position == other.position
+    while len(open_nodes):
+        current_node = pop_minimum_f(open_nodes)
+        closed_nodes.append(current_node)
 
-    def __str__(self):
-        return "({}, {})".format(self.value, len(self.neighbors))
+        if current_node == end:
+            break
 
-    def __repr__(self):
-        return "({}, {})".format(self.value, len(self.neighbors))
+def pop_minimum_f(nodes):
+    node = nodes[0]
+    index = 0
 
-def process_maze_layout(layout):
-    maze_nodes = []
+    for i, x in enumerate(thing[1:]):
+        if x.f < node.f:
+            node = x
+            index = i + 1
 
-    prev_line = None
-    for y, layout_line in enumerate(layout):
-        node_line = []
+    nodes.pop(index)
 
-        prev_node = None
-        for x, char in enumerate(layout_line):
-            # add new node to the line
-            node = Node((x, y), char)
-            node_line.append(node)
-
-            if prev_node:
-                # add horizontal neighbor references
-                node.neighbors.append(prev_node)
-                prev_node.neighbors.append(node)
-
-            if prev_line:
-                # TODO: add in diagonal neighbors
-                node.neighbors.append(prev_line[x])
-                prev_line[x].neighbors.append(node)
-
-            prev_node = node
-
-            # keep track of start/end positions
-            if char == "+":
-                start_position = node
-            elif char == "*":
-                end_position = node
-
-        prev_line = node_line
-
-        maze_nodes.append(node_line)
-
-    return maze_nodes, start_position, end_position
+    return node
 
 if __name__ ==  "__main__":
-    layout = []
-    try:
-        print("Enter a maze line by line.")
-        print("Use the following symbols separated by spaces:")
-        print(" '+': starting point")
-        print(" '.': open space")
-        print(" 'x': obstacle")
-        print(" '*': ending point")
-        print("Press CTRL+C to finish")
-
-        while True:
-            line = input().strip().split(" ")
-            layout.append(line)
-    except EOFError:
-        print()
-    except KeyboardInterrupt:
-        print()
-
-    maze, start, end = process_maze_layout(layout)
+    maze, start, end = maze_input()
 
     [print(line) for line in maze]
+
+    path = a_star(maze, start, end)
