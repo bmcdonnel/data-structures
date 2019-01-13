@@ -1,13 +1,14 @@
 class Node:
-    def __init__(self, x, y, value=None, parent=None):
+    def __init__(self, x, y, value=None):
         # immutable/private members
         self._x = x
         self._y = y
-        self._value = value
         self._neighbors = []
 
         # mutable/public members
-        self.parent = parent
+        self.value = value
+        self.parent = None
+        self.blocked = False
         self.f = 0
         self.g = 0
         self.h = 0
@@ -28,10 +29,10 @@ class Node:
         self._neighbors.append(node)
 
     def __str__(self):
-        return "{}, ({}, {})".format(self._value, self._x, self._y)
+        return "({}, {})".format(self._x, self._y)
 
     def __repr__(self):
-        return "{}, ({}, {})".format(self._value, self._x, self._y)
+        return "({}, {})".format(self._x, self._y)
 
 def maze_input():
     layout = []
@@ -86,6 +87,8 @@ def _process_maze_layout(layout):
                 start_position = node
             elif char == "*":
                 end_position = node
+            elif char == "x":
+                node.blocked = True
 
         prev_line = node_line
 
