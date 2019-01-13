@@ -1,5 +1,4 @@
 # Python Exercises
-
 ## Running
 
 Simply use the run script by passing it the name of the python module and any additional arguments needed. It will take care of bootstrapping the virtual environment and installing any dependencies.
@@ -45,5 +44,42 @@ Enter value to insert: 1
                3
                     1
 Enter value to insert: ^D
+$> ./run.sh exercises.graphs.a_star
+Enter a maze line by line.
+Use the following symbols separated by spaces:
+ '+': starting point
+ '.': open space
+ 'x': obstacle
+ '*': ending point
+Press CTRL+C to finish
++ . . . . x x x x x x *
+x x . . . x x . . . . .
+x x . . . x x . . x x x
+. . . x . x x . . . x x
+. . x x . x x . . . x x
+. . x x x x x x x . . x
+. . . x x x x . . . . x
+. . x x x x . . . . x x
+. . . . x x x . . . . x
+. . . . x x . . . x x x
+. . x x x x . . . x x x
+. . . . . . . . x x x x
+. . . . . . . . x x x x
+x x x x x x x x x x x x
+^C
++ o o o o x x x x x x *
+x x . . o x x . o o o o
+x x o o o x x . o x x x
+. o o x . x x . o o x x
+. o x x . x x . . o x x
+. o x x x x x x x o . x
+. o . x x x x o o o . x
+. o x x x x . o . . x x
+. o . . x x x o . . . x
+. o . . x x o o . x x x
+. o x x x x o . . x x x
+. o o o o o o . x x x x
+. . . . . . . . x x x x
+x x x x x x x x x x x x
 $>
 ```
