@@ -16,6 +16,9 @@ class BinarySearchTree:
         else:
             self.root = Node(val)
 
+    def find(self, value):
+        return _find_value(self.root, value)
+
     def pretty_print(self):
         _print_tree(self.root, 0)
         print()
@@ -43,6 +46,17 @@ def _insert(node, value):
         else:
             node.right = Node(value)
 
+def _find_value(node, value):
+    if node is None:
+        return None
+
+    if value == node.value:
+        return node
+
+    if value < node.value:
+        return _find_value(node.left, value)
+    else:
+        return _find_value(node.right, value)
 
 def _rebalance(node):
     left_height = node.left.height() if node.left else 0
