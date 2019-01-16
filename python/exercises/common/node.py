@@ -3,6 +3,7 @@ class Node:
         self.value = value
         self.left = None
         self.right = None
+        self.parent = None
 
     @staticmethod
     def build_from_implicitly_ordered_list(values):
@@ -24,6 +25,9 @@ class Node:
 
     def __eq__(self, other):
         return _are_nodes_equal(self, other)
+
+    def __lt__(self, other):
+        return self.value < other.value
 
     def __str__(self):
         return str(self.value)
