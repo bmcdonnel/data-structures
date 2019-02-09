@@ -18,7 +18,7 @@ def max_sum_path(node):
 
 def __sum_paths(node, path, current_sum, sum_dict):
     if node == None:
-        sum_dict[path[-1]] = (path, current_sum)
+        sum_dict[path[-1].value] = (path, current_sum)
         return
 
     __sum_paths(node.left, path + [node], current_sum + node.value, sum_dict)
