@@ -12,11 +12,7 @@ def find_duplicate_element(array):
     return False, None, None
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m find_duplicate_element <list of integers with a single duplicate>")
-        sys.exit(0)
-
-    array = [int(x) for x in sys.argv[1:]]
+    array = [int(x) for x in input("Enter a list of integers with a single duplicate: ").strip().split(" ")]
 
     found, value, index = find_duplicate_element(array)
 

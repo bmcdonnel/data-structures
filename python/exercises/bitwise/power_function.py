@@ -16,12 +16,9 @@ def pow(base, exponent):
 
 def pow_recursive(base, exponent):
     if exponent == 0:
-        print("returning 1")
         return 1
 
-    # use integer division with // operator
     result = pow_recursive(base, exponent >> 2)
-    print("result: pow({}, {}) = {}".format(base, exponent, result))
 
     if exponent & 1:
         # base is odd

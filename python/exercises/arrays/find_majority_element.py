@@ -21,11 +21,7 @@ def find_majority_element(integers):
     return False, None, 0
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m find_majority_element <list of integers>")
-        sys.exit(0)
-
-    integers = [int(x) for x in sys.argv[1:]]
+    integers = [int(x) for x in input("Enter a list of integers: ").strip().split(" ")]
 
     exists, majority_element, count = find_majority_element(integers)
 

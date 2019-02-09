@@ -27,11 +27,7 @@ def replace_elements_with_product(array):
         array[i] = left_products[i] * right_products[i]
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m replace_elements_with_product <list of integers>")
-        sys.exit(0)
-
-    array = [int(x) for x in sys.argv[1:]]
+    array = [int(x) for x in input("Enter a list of integers: ").strip().split(" ")]
 
     print("input: {}".format(array))
 

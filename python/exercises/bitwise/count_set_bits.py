@@ -13,13 +13,13 @@ def count_set_bits(number):
 # determining if an integer is a power of two is just a special
 # case of this algorithm
 def count_set_bits_fast(number):
-    count = 0 
+    count = 0
 
     while number:
         print(number)
         count += 1
         number = number & (number - 1)
-    
+
     return count
 
 if __name__ == "__main__":

@@ -20,11 +20,7 @@ def find_equilibrium_indices(array):
     return sorted(indices)
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m find_equilibrium_indices <list of integers>")
-        sys.exit(0)
-
-    array = [int(x) for x in sys.argv[1:]]
+    array = [int(x) for x in input("Enter a list of integers: ").strip().split(" ")]
 
     indices = find_equilibrium_indices(array)
 

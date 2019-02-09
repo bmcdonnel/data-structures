@@ -13,12 +13,9 @@ def find_pair_with_sum(target_sum, integers):
     return False, (None, None)
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m find_pair_with_sum <desired sum> <list of integers>")
-        sys.exit(0)
+    integers = [int(x) for x in input("Enter a list of integers: ").strip().split(" ")]
 
-    target_sum = int(sys.argv[1])
-    integers = [int(x) for x in sys.argv[2:]]
+    target_sum = int(input("Enter the target sum: ").strip())
 
     sum_exists, indices = find_pair_with_sum(target_sum, integers)
 

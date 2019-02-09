@@ -1,7 +1,7 @@
 import sys
 from exercises.common.binary_search_tree import BinarySearchTree
 
-def breadth_first_search_path(tree, value):
+def depth_first_search_path(tree, value):
     if tree == None:
         return
 
@@ -33,7 +33,7 @@ if __name__ ==  "__main__":
 
         while True:
             value = int(input("Enter search value: ").strip().split(" ")[0])
-            path, found = breadth_first_search_path(tree.root, value)
+            path, found = depth_first_search_path(tree.root, value)
 
             if found:
                 print("Found {} along path: {}".format(value, path))

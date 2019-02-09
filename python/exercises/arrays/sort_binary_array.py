@@ -12,11 +12,7 @@ def sort_binary_array(array):
         array[num_zeroes + i] = 1
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m sort_binary_array <list of 1's and 0's>")
-        sys.exit(0)
-
-    array = [int(x) for x in sys.argv[1:]]
+    array = [int(x) for x in input("Enter a list 1's and 0's: ").strip().split(" ")]
 
     sort_binary_array(array)
 

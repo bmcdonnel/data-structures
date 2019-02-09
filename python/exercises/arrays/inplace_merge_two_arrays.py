@@ -35,32 +35,15 @@ def inplace_merge(a, b):
 
         # insert "first" where it belongs
         b[j - 1] = first
-        print(i)
-        print(a)
-        print(b)
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m inplace_merge_two_arrays <list of integers> , <list of integers>")
-        sys.exit(0)
-
-    delimiter = -1
-    for i, x in enumerate(sys.argv):
-        if x == ",":
-            delimiter = i
-
-    if delimiter == -1:
-        print("please include a ',' delimiter to separate the two arrays")
-        sys.exit(0)
-
-    a = [int(x) for x in sys.argv[1:delimiter]]
-    b = [int(x) for x in sys.argv[delimiter + 1:]]
-
-    print(a)
-    print(b)
+    a = [int(x) for x in input("Enter the first list of integers: ").strip().split(" ")]
+    b = [int(x) for x in input("Enter the second list of integers: ").strip().split(" ")]
 
     if len(a) >= len(b):
         inplace_merge(a, b)
     else:
         inplace_merge(b, a)
 
+    print(a)
+    print(b)
