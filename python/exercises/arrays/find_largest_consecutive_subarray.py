@@ -1,47 +1,59 @@
 import sys
+import pdb
 
 # Given an array of integers, find largest sub-array formed by consecutive integers. The sub-array should contain all distinct values.
 # For example,
 # Input: { 2, 0, 2, 1, 4, 3, 1, 0 }
 # Output: The largest sub-array is { 0, 2, 1, 4, 3 }
 
-def ensure_consecutive_and_unique(array):
-    min_value = array[0]
-    max_value = array[0]
-    seen = dict()
-
-    # check for uniqueness of each element
-    for i, x in enumerate(array):
-        if x in seen:
-            return False
-        else:
-            seen[x] = i
-
-        # also find the min and max as we loop through the array
-        min_value = min(min_value, array[i])
-        max_value = max(max_value, array[i])
-
-    # check that no numbers are skipped by comparing diff of min and max with length
-    if max_value - min_value + 1 != len(array):
-        return False
-
-    return True
-
 def find_largest_consecutive_subarray(array):
     length = 1
     start_index = 0
     end_index = 0
 
-    for i, x in enumerate(array):
-        # TODO: finish this
-        pass
-        
+    for i in range(len(array) - 1):
+        min_value = array[i]
+        max_value = array[i]
+
+        seen = dict()
+        seen[array[i]] = i
+
+        for j in range(i + 1, len(array)):
+            value = array[j]
+
+            min_value = min(min_value, value)
+            max_value = max(max_value, value)
+
+            max_min_diff = max_value - min_value + 1
+            item_count_diff = j - i + 1
+
+            # make sure that this array value hasn't been
+            # seen before in the subarray
+            if value in seen:
+                # break instead of continue cause a duplicate
+                # ruins this sub-array chances
+                break
+
+            seen[value] = j
+
+            # check that no numbers are skipped by comparing
+            # diff of min and max with length of subarray
+            if max_min_diff != item_count_diff:
+                # continue instead of break cause the next
+                # number might complete this sub-array
+                continue
+
+            if max_min_diff > length:
+                length = max_min_diff
+                start_index = i
+                end_index = j
+
+    return array[start_index:end_index + 1]
+
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m find_largest_consecutive_subarray <list of integers>")
-        sys.exit(0)
+    array = [int(x) for x in input("Enter a list of integers: ").strip().split(" ")]
 
-    array = [int(x) for x in sys.argv[1:]]
+    sub_array = find_largest_consecutive_subarray(array)
 
-    find_largest_consecutive_subarray(array)
+    print("The largest sub-array with consecutive, distinct numbers is: {}".format(sub_array))
