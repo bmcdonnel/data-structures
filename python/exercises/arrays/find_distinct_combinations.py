@@ -9,19 +9,42 @@ import sys
 #   Input:  {1,2,1}, k=2
 #   Output: [{1,1}, {1,2}]
 
-# TODO: finish this
-def find_distinct_combinations(integers):
-    return []
+def find_distinct_combinations(integers, k):
+    combinations = []
+
+    _find_distinct_combinations(integers, combinations, [], 0, k)
+
+    return combinations
+
+def _find_distinct_combinations(integers, results, combination, i, k):
+    if k == 0:
+        results.append(combination)
+        return
+
+    if i == len(integers):
+        return
+
+    _find_distinct_combinations(
+        integers,
+        results,
+        combination + [integers[i]],
+        i + 1,
+        k - 1
+    )
+
+    _find_distinct_combinations(
+        integers,
+        results,
+        combination,
+        i + 1,
+        k
+    )
 
 if __name__ ==  "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python -m find_distinct_combinations <length of combinations> <list of integers>")
-        sys.exit(0)
+    integers = [int(x) for x in input("Enter list of integers: ").strip().split(" ")]
+    combo_length = int(input("Enter combination length: ").strip())
 
-    combo_length = int(sys.argv[1])
-    integers = [int(x) for x in sys.argv[2:]]
-
-    combinations = find_distinct_combinations(integers)
+    combinations = find_distinct_combinations(integers, combo_length)
 
     if len(combinations):
         print("found {} distinct combinations of length {}: {}".format(len(combinations), combo_length, combinations))
